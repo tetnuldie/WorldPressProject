@@ -8,6 +8,7 @@ public enum SideMenuElement {
     COMMENTS("menu-comments"),
     APPEARANCE("menu-appearance"),
     PLUGINS("menu-plugins"),
+    PROFILE("menu-users"),
     USERS("menu-users"),
     TOOLS("menu-tools"),
     SETTINGS("menu-settings"),

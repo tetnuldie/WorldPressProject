@@ -18,6 +18,7 @@ public class PageProvider {
         if (pageClass.isInstance(page)) {
             return pageClass.cast(page);
         } else {
+            //log
             throw new IllegalArgumentException("Invalid page type");
         }
     }

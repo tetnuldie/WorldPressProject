@@ -2,6 +2,7 @@ package org.example.pages;
 
 import com.codeborne.selenide.*;
 import org.example.users.User;
+import org.example.users.UserType;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
@@ -52,7 +53,7 @@ public class LoginPO implements Page{
         getLoginField().sendKeys(user.getLogin());
         getPassField().sendKeys(user.getPassword());
         click(getSubmitBttn());
-        Selenide.Wait().until(urlToBe(PageType.MAIN.getUrl()));
+        Selenide.Wait().until(urlToBe(user.getUserType() == UserType.SUBSCRIBER ? PageType.PROFILE.getUrl() : PageType.MAIN.getUrl()));
     }
 
     public void userLoginWithRemember(User user){
@@ -60,12 +61,10 @@ public class LoginPO implements Page{
         getPassField().sendKeys(user.getPassword());
         getRememberMeCheckbox().click();
         click(getSubmitBttn());
-        Selenide.Wait().until(urlToBe(PageType.MAIN.getUrl()));
+        Selenide.Wait().until(urlToBe(user.getUserType() == UserType.SUBSCRIBER ? PageType.PROFILE.getUrl() : PageType.MAIN.getUrl()));
     }
 
     private ExpectedCondition<Boolean> urlToBe(String expectedUrl) {
         return ExpectedConditions.urlToBe(expectedUrl);
     }
-
-
 }
