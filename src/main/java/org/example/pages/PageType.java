@@ -2,11 +2,12 @@ package org.example.pages;
 
 public enum PageType {
     LOGIN("https://wordpress-test-app-for-selenium.azurewebsites.net/wp-login.php"),
-    MAIN("https://wordpress-test-app-for-selenium.azurewebsites.net/wp-admin/index.php"),
+    MAIN("https://wordpress-test-app-for-selenium.azurewebsites.net/wp-admin/"),
     PAGES("https://wordpress-test-app-for-selenium.azurewebsites.net/wp-admin/edit.php?post_type=page"),
     POSTS("https://wordpress-test-app-for-selenium.azurewebsites.net/wp-admin/edit.php"),
     MEDIA("https://wordpress-test-app-for-selenium.azurewebsites.net/wp-admin/upload.php"),
-    COMMENTS("https://wordpress-test-app-for-selenium.azurewebsites.net/wp-admin/edit-comments.php");
+    COMMENTS("https://wordpress-test-app-for-selenium.azurewebsites.net/wp-admin/edit-comments.php"),
+    PROFILE("https://wordpress-test-app-for-selenium.azurewebsites.net/wp-admin/profile.php");
 
     private String url;
     PageType(String url){

@@ -24,6 +24,6 @@ public class MainPagePO implements Page, PageMenuFunc {
 
     @Override
     public void openPage() {
-        open("https://wordpress-test-app-for-selenium.azurewebsites.net/wp-admin");
+        open(PageType.MAIN.getUrl());
     }
 }
