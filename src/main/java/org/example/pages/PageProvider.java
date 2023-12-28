@@ -1,5 +1,8 @@
 package org.example.pages;
 
+import org.example.pages.pages.CreatePostPO;
+import org.example.pages.pages.PostsPO;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,6 +13,10 @@ public class PageProvider {
         repository = new HashMap<>();
         repository.put(PageType.LOGIN, new LoginPO());
         repository.put(PageType.MAIN, new MainPagePO());
+        repository.put(PageType.PAGES, new PostsPO(PageType.PAGES));
+        repository.put(PageType.NEW_PAGE, new CreatePostPO(PageType.NEW_PAGE));
+        repository.put(PageType.POSTS, new PostsPO(PageType.POSTS));
+        repository.put(PageType.NEW_POST, new CreatePostPO(PageType.NEW_POST));
     }
 
 

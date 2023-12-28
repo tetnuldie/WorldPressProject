@@ -23,7 +23,6 @@ public class UserLoginTest {
     @Test(dataProvider = "userDataProvider")
     public void userPermissionsTest(String user){
         SoftAssert softAssert = new SoftAssert();
-        loginPage.openPage();
         loginPage.userLoginWoRemember(UserProvider.getUser(UserType.valueOf(user.toUpperCase())));
 
         UserPermissions.getUserPermissions(UserType.valueOf(user.toUpperCase())).forEach(element -> {
