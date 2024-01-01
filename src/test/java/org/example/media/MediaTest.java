@@ -10,6 +10,7 @@ import org.example.users.User;
 import org.example.users.UserFactory;
 import org.example.users.UserType;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -39,6 +40,11 @@ public class MediaTest {
     @BeforeMethod
     public void openHomePage() {
         mediaPage.openPage();
+    }
+
+    @AfterClass
+    public void cleanup(){
+        loginPage.close();
     }
 
     @Test
