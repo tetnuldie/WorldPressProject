@@ -1,12 +1,14 @@
 package org.example.pages;
 
-import org.example.pages.pages.CreatePostPO;
-import org.example.pages.pages.PostsPO;
+import org.example.pages.comments.PublicPostPO;
+import org.example.pages.table.CommentsPO;
+import org.example.pages.table.CreatePostPO;
+import org.example.pages.table.PostsPO;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class PageProvider {
+public class PageFactory {
     private static Map<PageType, Page> repository;
 
     static {
@@ -17,6 +19,8 @@ public class PageProvider {
         repository.put(PageType.NEW_PAGE, new CreatePostPO(PageType.NEW_PAGE));
         repository.put(PageType.POSTS, new PostsPO(PageType.POSTS));
         repository.put(PageType.NEW_POST, new CreatePostPO(PageType.NEW_POST));
+        repository.put(PageType.COMMENTS, new CommentsPO(PageType.COMMENTS));
+        repository.put(PageType.PUBLIC_POST, new PublicPostPO());
     }
 
 

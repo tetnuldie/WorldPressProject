@@ -79,6 +79,11 @@
       <artifactId>json-path</artifactId>
       <version>2.5.0</version>
     </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.30</version>
+    </dependency>
   </dependencies>
   <build>
     <plugins>
@@ -87,6 +92,13 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.11.0</version>
         <configuration>
+          <annotationProcessorPaths>
+            <path>
+              <groupId>org.projectlombok</groupId>
+              <artifactId>lombok</artifactId>
+              <version>1.18.30</version> <!-- Проверьте актуальную версию на сайте Lombok -->
+            </path>
+          </annotationProcessorPaths>
           <source>16</source>
           <target>16</target>
         </configuration>

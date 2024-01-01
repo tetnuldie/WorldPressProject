@@ -4,7 +4,7 @@ import com.codeborne.selenide.Configuration;
 import org.example.pages.*;
 import org.example.pages.sidemenu.SideMenuElement;
 import org.example.users.UserPermissions;
-import org.example.users.UserProvider;
+import org.example.users.UserFactory;
 import org.example.users.UserType;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.DataProvider;
@@ -18,12 +18,12 @@ public class UserLoginTest {
         System.setProperty("webdriver.chrome.driver", "src/chromedriver.exe");
         Configuration.startMaximized = true;
     }
-    private LoginPO loginPage =  PageProvider.getPage(PageType.LOGIN, LoginPO.class);
-    private MainPagePO mainPage = PageProvider.getPage(PageType.MAIN, MainPagePO.class);
+    private LoginPO loginPage =  PageFactory.getPage(PageType.LOGIN, LoginPO.class);
+    private MainPagePO mainPage = PageFactory.getPage(PageType.MAIN, MainPagePO.class);
     @Test(dataProvider = "userDataProvider")
     public void userPermissionsTest(String user){
         SoftAssert softAssert = new SoftAssert();
-        loginPage.userLoginWoRemember(UserProvider.getUser(UserType.valueOf(user.toUpperCase())));
+        loginPage.userLoginWoRemember(UserFactory.getUser(UserType.valueOf(user.toUpperCase())));
 
         UserPermissions.getUserPermissions(UserType.valueOf(user.toUpperCase())).forEach(element -> {
             softAssert.assertTrue(mainPage.isVisible(PageMenuFunc.getSideMenuElement(SideMenuElement.valueOf(element.toUpperCase()))),

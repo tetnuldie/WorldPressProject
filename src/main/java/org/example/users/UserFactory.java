@@ -3,7 +3,7 @@ package org.example.users;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UserProvider {
+public class UserFactory {
 
     private static final Map<UserType, User> userRepository;
 

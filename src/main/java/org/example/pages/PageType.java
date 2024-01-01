@@ -9,7 +9,8 @@ public enum PageType {
     NEW_POST("https://wordpress-test-app-for-selenium.azurewebsites.net/wp-admin/post-new.php"),
     MEDIA("https://wordpress-test-app-for-selenium.azurewebsites.net/wp-admin/upload.php"),
     COMMENTS("https://wordpress-test-app-for-selenium.azurewebsites.net/wp-admin/edit-comments.php"),
-    PROFILE("https://wordpress-test-app-for-selenium.azurewebsites.net/wp-admin/profile.php");
+    PROFILE("https://wordpress-test-app-for-selenium.azurewebsites.net/wp-admin/profile.php"),
+    PUBLIC_POST("https://wordpress-test-app-for-selenium.azurewebsites.net/2023/12/30/do_not_delete/");
 
     private String url;
     PageType(String url){

@@ -1,4 +1,4 @@
-package org.example.pages.pages;
+package org.example.pages.table;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
@@ -47,11 +47,13 @@ public class CreatePostPO implements Page {
         return getEditorPublishForm().$x(".//button[contains(@class, 'is-primary')]")
                 .shouldBe(Condition.visible);
     }
+
     public SelenideElement getPostPublishHeader() {
         return $x("//div[@class='post-publish-panel__postpublish']/div[1]")
                 .shouldBe(Condition.visible);
     }
-    public int getNewPostIdAfterDraft(){
+
+    public int getNewPostIdAfterDraft() {
         return Integer.parseInt(WebDriverRunner.url().split("=")[1].split("&")[0]);
     }
 
@@ -64,27 +66,28 @@ public class CreatePostPO implements Page {
 
     public SelenideElement getSuccessPopup() {
         return $x("//div[@class='components-snackbar__content']")
-                .shouldBe(Condition.visible);
+                .should(Condition.appear);
     }
 
-    public SelenideElement getToDraftBttn(){
+    public SelenideElement getToDraftBttn() {
         return $x("//div[@class='components-panel']//button[contains(@class, 'switch-to-draft')]").shouldBe(Condition.visible);
     }
 
-    public SelenideElement getAreUSurePopupOkButton(){
-       return  $x("//div[@class='components-modal__content hide-header']")
-               .shouldBe(Condition.visible)
-               .$x(".//button[contains(@class, 'is-primary')]")
-               .shouldBe(Condition.visible);
+    public SelenideElement getAreUSurePopupOkButton() {
+        return $x("//div[@class='components-modal__content hide-header']")
+                .should(Condition.appear)
+                .$x(".//button[contains(@class, 'is-primary')]")
+                .shouldBe(Condition.visible);
     }
 
-    public int saveDraftPost(String postHeader, String postBody){
+    public int saveDraftPost(String postHeader, String postBody) {
         fillPostContent(postHeader, postBody);
         click(getSaveDraftBttn());
         getSuccessPopup();
         return getNewPostIdAfterDraft();
     }
-    public int saveDraftPostAndBack(String postHeader, String postBody){
+
+    public int saveDraftPostAndBack(String postHeader, String postBody) {
         fillPostContent(postHeader, postBody);
         click(getSaveDraftBttn());
         getSuccessPopup();
@@ -93,21 +96,21 @@ public class CreatePostPO implements Page {
         return id;
     }
 
-    public void publishDraftFromEditScreen(){
+    public void publishDraftFromEditScreen() {
         click(getPublishBttn());
         click(getEditorPublishBttn());
         getPostPublishHeader();
         openPageWithWaiter(pageType == PageType.NEW_POST ? PageType.POSTS.getUrl() : PageType.PAGES.getUrl());
     }
 
-    public int createNewPublishedPost(String postHeader, String postBody){
+    public int createNewPublishedPost(String postHeader, String postBody) {
         int newPostId = saveDraftPost(postHeader, postBody);
         publishDraftFromEditScreen();
         openPageWithWaiter(pageType == PageType.NEW_POST ? PageType.POSTS.getUrl() : PageType.PAGES.getUrl());
         return newPostId;
     }
 
-    public void switchPublishedPostToDraft(){
+    public void switchPublishedPostToDraft() {
         click(getToDraftBttn());
         click(getAreUSurePopupOkButton());
         getSuccessPopup();
