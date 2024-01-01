@@ -1,9 +1,7 @@
 package org.example.pages;
 
 import org.example.pages.comments.PublicPostPO;
-import org.example.pages.table.CommentsPO;
-import org.example.pages.table.CreatePostPO;
-import org.example.pages.table.PostsPO;
+import org.example.pages.table.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,6 +19,8 @@ public class PageFactory {
         repository.put(PageType.NEW_POST, new CreatePostPO(PageType.NEW_POST));
         repository.put(PageType.COMMENTS, new CommentsPO(PageType.COMMENTS));
         repository.put(PageType.PUBLIC_POST, new PublicPostPO());
+        repository.put(PageType.MEDIA, new MediaPO(PageType.MEDIA));
+        repository.put(PageType.UPLOAD_MEDIA, new UploadMediaPO(PageType.MEDIA));
     }
 
 

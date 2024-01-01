@@ -10,6 +10,7 @@ import org.example.users.UserFactory;
 import org.example.users.UserType;
 import org.testng.Assert;
 import org.testng.annotations.*;
+import org.testng.asserts.SoftAssert;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -66,11 +67,13 @@ public class PagesTest {
 
         var newPostObject = postsPage.getRowAsObject(postsPage.getTableRowById(postId));
         testData.add(newPostObject);
+        SoftAssert softAssert = new SoftAssert();
 
-        Assert.assertTrue(postsPage.isVisible(postsPage.getTableRowById(postId)), "Created page not present on Pages layout");
-        Assert.assertTrue(newPostObject.isDraft(), "Created page is not type - draft");
-        Assert.assertTrue(postsPage.isVisible(newPostObject.getTitleElement()), "Page title not displayed on Pages layout");
-        Assert.assertTrue(postsPage.isVisible(newPostObject.getDateElement()), "Date element is not displayed");
+        softAssert.assertTrue(postsPage.isVisible(postsPage.getTableRowById(postId)), "Created page not present on Pages layout");
+        softAssert.assertTrue(newPostObject.isDraft(), "Created page is not type - draft");
+        softAssert.assertTrue(postsPage.isVisible(newPostObject.getTitleElement()), "Page title not displayed on Pages layout");
+        softAssert.assertTrue(postsPage.isVisible(newPostObject.getDateElement()), "Date element is not displayed");
+        softAssert.assertAll();
     }
 
     @Test(priority = 1)
@@ -87,10 +90,12 @@ public class PagesTest {
         var newPostObject = postsPage.getRowAsObject(postsPage.getTableRowById(postId));
         testData.add(newPostObject);
 
-        Assert.assertTrue(postsPage.isVisible(postsPage.getTableRowById(postId)), "Created page not present on Pages layout");
-        Assert.assertFalse(newPostObject.isDraft(), "Created page is not type - published");
-        Assert.assertTrue(postsPage.isVisible(newPostObject.getTitleElement()), "Page title not displayed on Pages layout");
-        Assert.assertTrue(postsPage.isVisible(newPostObject.getDateElement()), "Date element is not displayed");
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(postsPage.isVisible(postsPage.getTableRowById(postId)), "Created page not present on Pages layout");
+        softAssert.assertFalse(newPostObject.isDraft(), "Created page is not type - published");
+        softAssert.assertTrue(postsPage.isVisible(newPostObject.getTitleElement()), "Page title not displayed on Pages layout");
+        softAssert.assertTrue(postsPage.isVisible(newPostObject.getDateElement()), "Date element is not displayed");
+        softAssert.assertAll();
     }
 
     @Test(priority = 2)

@@ -15,6 +15,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -72,10 +73,12 @@ public class PostsTest {
         var newPostObject = postsPage.getRowAsObject(postsPage.getTableRowById(postId));
         testData.add(newPostObject);
 
-        Assert.assertTrue(postsPage.isVisible(postsPage.getTableRowById(postId)), "Created post not present on Posts layout");
-        Assert.assertTrue(newPostObject.isDraft(), "Created post is not type - draft");
-        Assert.assertTrue(postsPage.isVisible(newPostObject.getTitleElement()), "Post title not displayed on Posts layout");
-        Assert.assertTrue(postsPage.isVisible(newPostObject.getDateElement()), "Date element is not displayed");
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(postsPage.isVisible(postsPage.getTableRowById(postId)), "Created post not present on Posts layout");
+        softAssert.assertTrue(newPostObject.isDraft(), "Created post is not type - draft");
+        softAssert.assertTrue(postsPage.isVisible(newPostObject.getTitleElement()), "Post title not displayed on Posts layout");
+        softAssert.assertTrue(postsPage.isVisible(newPostObject.getDateElement()), "Date element is not displayed");
+        softAssert.assertAll();
     }
 
     @Test(priority = 1)
@@ -92,10 +95,12 @@ public class PostsTest {
         var newPostObject = postsPage.getRowAsObject(postsPage.getTableRowById(postId));
         testData.add(newPostObject);
 
-        Assert.assertTrue(postsPage.isVisible(postsPage.getTableRowById(postId)), "Created post not present on Posts layout");
-        Assert.assertFalse(newPostObject.isDraft(), "Created post is not type - published");
-        Assert.assertTrue(postsPage.isVisible(newPostObject.getTitleElement()), "Post title not displayed on Posts layout");
-        Assert.assertTrue(postsPage.isVisible(newPostObject.getDateElement()), "Date element is not displayed");
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(postsPage.isVisible(postsPage.getTableRowById(postId)), "Created post not present on Posts layout");
+        softAssert.assertFalse(newPostObject.isDraft(), "Created post is not type - published");
+        softAssert.assertTrue(postsPage.isVisible(newPostObject.getTitleElement()), "Post title not displayed on Posts layout");
+        softAssert.assertTrue(postsPage.isVisible(newPostObject.getDateElement()), "Date element is not displayed");
+        softAssert.assertAll();
     }
 
     @Test(priority = 2)
