@@ -42,10 +42,6 @@ public class MediaTest {
         mediaPage.openPage();
     }
 
-    @AfterClass
-    public void cleanup(){
-        loginPage.close();
-    }
 
     @Test
     public void uploadMediaTest(){
