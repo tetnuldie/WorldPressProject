@@ -2,10 +2,11 @@ package org.example.pages;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import com.codeborne.selenide.conditions.Visible;
 import org.example.pages.topMenu.AdminBarElement;
 import org.example.pages.sidemenu.SideMenuElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import static com.codeborne.selenide.Selenide.$x;
 
@@ -45,5 +46,11 @@ public interface PageMenuFunc {
                 .filterBy(Condition.matchText(name))
                 .first()
                 .shouldBe(Condition.visible);
+    }
+
+    static void logOut(){
+        getAdminBarElement(AdminBarElement.USER).hover();
+        getAdminBarItemSubMenu(AdminBarElement.USER).filter(Condition.id("wp-admin-bar-logout")).first().click();
+        Selenide.Wait().until(ExpectedConditions.urlToBe("https://wordpress-test-app-for-selenium.azurewebsites.net/wp-login.php?loggedout=true&wp_lang=en_US"));
     }
 }

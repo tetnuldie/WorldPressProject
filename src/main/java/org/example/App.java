@@ -1,14 +1,8 @@
 package org.example;
 
 import com.codeborne.selenide.Configuration;
-import org.example.pages.*;
-import org.example.pages.pages.CreatePostPO;
-import org.example.pages.pages.PostsPO;
-import org.example.pages.sidemenu.SideMenuElement;
-import org.example.users.UserProvider;
-import org.example.users.UserType;
 
-import java.time.Instant;
+import static com.codeborne.selenide.Selenide.open;
 
 public class App
 {
@@ -19,6 +13,7 @@ public class App
     }
     public static void main( String[] args )
     {
+
 
 
 

@@ -1,42 +1,25 @@
-package org.example.pages.pages;
+package org.example.pages.table;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import org.example.pages.Page;
-import org.example.pages.PageMenuFunc;
 import org.example.pages.PageType;
+import org.example.pages.table.tablerow.PostRow;
 import org.example.users.User;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import static com.codeborne.selenide.Selenide.*;
-
-public class PostsPO implements PageMenuFunc, Page {
-    private final PageType pageType;
+public class PostsPO extends TablePagePO{
 
     public PostsPO(PageType pageType) {
-        this.pageType = pageType;
+        super(pageType);
     }
-
-    public SelenideElement getTablePageRoot() {
-        return $x("//div[@class='wrap']").shouldBe(Condition.visible);
-    }
-
     public SelenideElement getAddNewBttn() {
         return getTablePageRoot().$x("./a[@class='page-title-action']").shouldBe(Condition.visible);
     }
 
-    public SelenideElement getFilterRowOptionsRoot() {
-        return getTablePageRoot().$x("./ul[@class='subsubsub']").shouldBe(Condition.visible);
-    }
-
     public SelenideElement getContentTableRoot() {
         return getTablePageRoot().$x("./form[@id='posts-filter']/table").shouldBe(Condition.visible);
-    }
-
-    public ElementsCollection getTableRows() {
-        return getContentTableRoot().$$x("./tbody/tr");
     }
 
     public ElementsCollection getDraftRows() {
@@ -48,7 +31,7 @@ public class PostsPO implements PageMenuFunc, Page {
     }
 
     public ElementsCollection getTrashRows() {
-        return getTableRows().filter(Condition.cssClass("status-publish"));
+        return getTableRows().filter(Condition.cssClass("status-trash"));
     }
 
     public SelenideElement getPostDraftRowByTitleAndUser(String postHeader, String userLogin) {
@@ -69,26 +52,16 @@ public class PostsPO implements PageMenuFunc, Page {
                 .first().shouldBe(Condition.visible);
     }
 
-    public SelenideElement getPostRowById(int id) {
+    public SelenideElement getTableRowById(int id) {
         return getTableRows()
                 .filter(Condition.id(String.format("post-%d", id)))
                 .first().shouldBe(Condition.visible);
     }
 
-    public TdObject getPostAsObject(SelenideElement trRoot) {
-        return new TdObject(trRoot);
-    }
-
-    public SelenideElement getBulkActionsDropdown() {
-        return $x("//div[@class='tablenav top']//select[@id='bulk-action-selector-top']").shouldBe(Condition.visible);
-    }
-
-    public SelenideElement getBulkActionsApplyBttn() {
-        return $x("//div[@class='tablenav top']//input[@id='doaction']").shouldBe(Condition.visible);
-    }
-
-    public SelenideElement getConfirmationPopupWindow() {
-        return getTablePageRoot().$x(".//div[@id='message']").shouldBe(Condition.visible);
+    public PostRow getRowAsObject(SelenideElement trRoot) {
+        var rowObject = new PostRow(trRoot);
+        rowObject.init();
+        return rowObject;
     }
 
     public void openEditExistingDraftPost(int draftId) {
@@ -104,27 +77,16 @@ public class PostsPO implements PageMenuFunc, Page {
     }
 
 
-    public void goToMinePosts(User user) {
+    public void goToMine(User user) {
         getFilterRowOptionsRoot()
                 .$x("./li[@class='mine']").shouldBe(Condition.visible)
                 .click();
 
         Selenide.Wait().until(ExpectedConditions.urlToBe(
-                this.pageType == PageType.PAGES ?
+                pageType == PageType.PAGES ?
                         String.format("https://wordpress-test-app-for-selenium.azurewebsites.net/wp-admin/edit.php?post_type=page&author=%d", user.getUserId())
                         : String.format("https://wordpress-test-app-for-selenium.azurewebsites.net/wp-admin/edit.php?post_type=post&author=%d", user.getUserId())
         ));
-    }
-
-    public void moveCheckedPostToTrash() {
-        getBulkActionsDropdown().selectOptionByValue("trash");
-        click(getBulkActionsApplyBttn());
-        click(getConfirmationPopupWindow().$x("./button"));
-    }
-
-    public void deleteCheckedPost() {
-        getBulkActionsDropdown().selectOptionByValue("delete");
-        click(getBulkActionsApplyBttn());
     }
 
     public void goToTrash() {
@@ -140,34 +102,7 @@ public class PostsPO implements PageMenuFunc, Page {
     }
 
     @Override
-    public void openPage() {
-        open(pageType.getUrl());
-    }
+    public void quickEdit(String text) {
 
-    @Override
-    public void hover(SelenideElement element) {
-        element.shouldBe(Condition.visible).hover();
-    }
-
-    @Override
-    public void click(SelenideElement element) {
-        element.shouldBe(Condition.visible).click();
-    }
-
-    @Override
-    public boolean isVisible(SelenideElement element) {
-        return element.isDisplayed();
-    }
-
-    @Override
-    public void openPageWithWaiter(String url) {
-        open(url);
-        Selenide.Wait().until(ExpectedConditions.urlToBe(url));
-    }
-
-    @Override
-    public void clickAndRedirectTo(SelenideElement element, String expectedUrl) {
-        element.click();
-        Selenide.Wait().until(ExpectedConditions.urlToBe(expectedUrl));
     }
 }

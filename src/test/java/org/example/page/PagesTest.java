@@ -2,11 +2,11 @@ package org.example.page;
 
 import com.codeborne.selenide.Configuration;
 import org.example.pages.*;
-import org.example.pages.pages.CreatePostPO;
-import org.example.pages.pages.PostsPO;
-import org.example.pages.pages.TdObject;
+import org.example.pages.table.CreatePostPO;
+import org.example.pages.table.PostsPO;
+import org.example.pages.table.tablerow.PostRow;
 import org.example.users.User;
-import org.example.users.UserProvider;
+import org.example.users.UserFactory;
 import org.example.users.UserType;
 import org.testng.Assert;
 import org.testng.annotations.*;
@@ -22,11 +22,11 @@ public class PagesTest {
         Configuration.timeout = 10000;
     }
 
-    private final User user = UserProvider.getUser(UserType.EDITOR);
-    private final LoginPO loginPage = PageProvider.getPage(PageType.LOGIN, LoginPO.class);
-    private final PostsPO postsPage = PageProvider.getPage(PageType.PAGES, PostsPO.class);
-    private final CreatePostPO createPostPage = PageProvider.getPage(PageType.NEW_PAGE, CreatePostPO.class);
-    private static List<TdObject> testData = new ArrayList<>();
+    private final User user = UserFactory.getUser(UserType.EDITOR);
+    private final LoginPO loginPage = PageFactory.getPage(PageType.LOGIN, LoginPO.class);
+    private final PostsPO postsPage = PageFactory.getPage(PageType.PAGES, PostsPO.class);
+    private final CreatePostPO createPostPage = PageFactory.getPage(PageType.NEW_PAGE, CreatePostPO.class);
+    private static List<PostRow> testData = new ArrayList<>();
 
     @BeforeClass
     public void login() {
@@ -40,14 +40,14 @@ public class PagesTest {
 
     @AfterClass
     public void cleanup() {
-        postsPage.goToMinePosts(user);
+        postsPage.goToMine(user);
         testData.stream()
                 .filter(element -> !element.isTrash())
-                .forEach(TdObject::checkPost);
-        postsPage.moveCheckedPostToTrash();
+                .forEach(PostRow::checkRow);
+        postsPage.moveCheckedToTrash();
         postsPage.goToTrash();
-        testData.forEach(TdObject::checkPost);
-        postsPage.deleteCheckedPost();
+        testData.forEach(PostRow::checkRow);
+        postsPage.deleteChecked();
 
         loginPage.close();
     }
@@ -62,12 +62,12 @@ public class PagesTest {
 
         int postId = createPostPage.saveDraftPostAndBack(postHeader, postBody);
 
-        postsPage.goToMinePosts(user);
+        postsPage.goToMine(user);
 
-        TdObject newPostObject = postsPage.getPostAsObject(postsPage.getPostRowById(postId));
+        var newPostObject = postsPage.getRowAsObject(postsPage.getTableRowById(postId));
         testData.add(newPostObject);
 
-        Assert.assertTrue(postsPage.isVisible(postsPage.getPostRowById(postId)), "Created page not present on Pages layout");
+        Assert.assertTrue(postsPage.isVisible(postsPage.getTableRowById(postId)), "Created page not present on Pages layout");
         Assert.assertTrue(newPostObject.isDraft(), "Created page is not type - draft");
         Assert.assertTrue(postsPage.isVisible(newPostObject.getTitleElement()), "Page title not displayed on Pages layout");
         Assert.assertTrue(postsPage.isVisible(newPostObject.getDateElement()), "Date element is not displayed");
@@ -82,12 +82,12 @@ public class PagesTest {
         String postBody = String.format("TestBody %s", ts);
 
         int postId = createPostPage.createNewPublishedPost(postHeader, postBody);
-        postsPage.goToMinePosts(user);
+        postsPage.goToMine(user);
 
-        TdObject newPostObject = postsPage.getPostAsObject(postsPage.getPostRowById(postId));
+        var newPostObject = postsPage.getRowAsObject(postsPage.getTableRowById(postId));
         testData.add(newPostObject);
 
-        Assert.assertTrue(postsPage.isVisible(postsPage.getPostRowById(postId)), "Created page not present on Pages layout");
+        Assert.assertTrue(postsPage.isVisible(postsPage.getTableRowById(postId)), "Created page not present on Pages layout");
         Assert.assertFalse(newPostObject.isDraft(), "Created page is not type - published");
         Assert.assertTrue(postsPage.isVisible(newPostObject.getTitleElement()), "Page title not displayed on Pages layout");
         Assert.assertTrue(postsPage.isVisible(newPostObject.getDateElement()), "Date element is not displayed");
@@ -95,49 +95,40 @@ public class PagesTest {
 
     @Test(priority = 2)
     public void publishDraftPageTest() {
-        postsPage.goToMinePosts(user);
-        TdObject item = testData.stream().filter(TdObject::isDraft).findFirst().get();
-        testData.remove(item);
+        postsPage.goToMine(user);
+        var postObject = testData.stream().filter(PostRow::isDraft).findFirst().get();
 
-        postsPage.openEditExistingDraftPost(item.getPostId());
+        postsPage.openEditExistingDraftPost(postObject.getId());
         createPostPage.publishDraftFromEditScreen();
-        postsPage.goToMinePosts(user);
+        postsPage.goToMine(user);
+        postObject.init();
 
-        TdObject newPostObject = postsPage.getPostAsObject(postsPage.getPostRowById(item.getPostId()));
-        testData.add(newPostObject);
-
-        Assert.assertFalse(newPostObject.isDraft(), "Post status have not been changed");
+        Assert.assertFalse(postObject.isDraft(), "Post status have not been changed");
     }
 
     @Test(priority = 2)
     public void turnPublishedPageToDraftTest() {
-        postsPage.goToMinePosts(user);
-        TdObject item = testData.stream().filter(element -> !element.isDraft()).findFirst().get();
-        testData.remove(item);
+        postsPage.goToMine(user);
+        var postObject = testData.stream().filter(element -> !element.isDraft()).findFirst().get();
 
-        postsPage.openEditExistingPublishedPost(item.getPostId());
+        postsPage.openEditExistingPublishedPost(postObject.getId());
         createPostPage.switchPublishedPostToDraft();
-        postsPage.goToMinePosts(user);
+        postsPage.goToMine(user);
+        postObject.init();
 
-        TdObject newPostObject = postsPage.getPostAsObject(postsPage.getPostRowById(item.getPostId()));
-        testData.add(newPostObject);
-
-        Assert.assertTrue(newPostObject.isDraft(), "Post status have not been changed");
+        Assert.assertTrue(postObject.isDraft(), "Post status have not been changed");
     }
 
     @Test(priority = 3)
     public void movePageToTrash() {
-        postsPage.goToMinePosts(user);
-        TdObject item = testData.stream().filter(element -> !element.isTrash()).findFirst().get();
-        item.checkPost();
-        testData.remove(item);
-        postsPage.moveCheckedPostToTrash();
+        postsPage.goToMine(user);
+        var postObject = testData.stream().filter(element -> !element.isTrash()).findFirst().get();
+        postObject.checkRow();
+        postsPage.moveCheckedToTrash();
         postsPage.goToTrash();
 
-        TdObject newItem = postsPage.getPostAsObject(postsPage.getPostRowById(item.getPostId()));
-        testData.add(newItem);
-
-        Assert.assertTrue(postsPage.isVisible(postsPage.getPostRowById(item.getPostId())), "Page not found in trash bin");
+        postObject.init();
+        Assert.assertTrue(postsPage.isVisible(postsPage.getTableRowById(postObject.getId())), "Page not found in trash bin");
 
     }
 }
