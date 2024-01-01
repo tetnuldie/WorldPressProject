@@ -1,8 +1,15 @@
 package org.example;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Modal;
+import org.example.pages.LoginPO;
+import org.example.pages.PageType;
+import org.example.pages.table.MediaPO;
+import org.example.pages.table.UploadMediaPO;
+import org.example.users.UserFactory;
+import org.example.users.UserType;
 
-import static com.codeborne.selenide.Selenide.open;
+import java.io.File;
 
 public class App
 {
@@ -13,6 +20,27 @@ public class App
     }
     public static void main( String[] args )
     {
+        LoginPO login = new LoginPO();
+        MediaPO media = new MediaPO(PageType.MEDIA);
+        UploadMediaPO upload = new UploadMediaPO(PageType.UPLOAD_MEDIA);
+        File file = new File("src/Resources/pepe.jpg");
+
+/*        login.openPage();
+        login.userLoginWoRemember(UserFactory.getUser(UserType.EDITOR));
+
+        media.openPage();
+        media.clickAndRedirectTo(media.getAddNewBttn(), PageType.UPLOAD_MEDIA.getUrl());
+        int id = upload.uploadFile(file);
+        media.openPage();
+
+
+        var mediaRow = media.getRowAsObject(media.getTableRowById(id));
+        mediaRow.checkRow();
+        media.deleteChecked();*/
+
+
+        System.out.println();
+
 
 
 

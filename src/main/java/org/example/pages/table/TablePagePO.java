@@ -24,10 +24,10 @@ public abstract class TablePagePO implements PageMenuFunc, Page {
     public abstract void goToTrash();
     public abstract void quickEdit(String text);
 
-    public SelenideElement getTablePageRoot() {//common
+    public SelenideElement getTablePageRoot() {
         return $x("//div[@class='wrap']").shouldBe(Condition.visible);
     }
-    public SelenideElement getFilterRowOptionsRoot() {//common
+    public SelenideElement getFilterRowOptionsRoot() {
         return getTablePageRoot().$x("./ul[@class='subsubsub']").shouldBe(Condition.visible);
     }
     public ElementsCollection getTableRows() {
