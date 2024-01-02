@@ -1,6 +1,7 @@
 package org.example.posts;
 
 import com.codeborne.selenide.Configuration;
+import io.qameta.allure.testng.AllureTestNg;
 import org.example.pages.LoginPO;
 import org.example.pages.PageFactory;
 import org.example.pages.PageType;
@@ -11,16 +12,13 @@ import org.example.users.User;
 import org.example.users.UserFactory;
 import org.example.users.UserType;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
 
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-
+@Listeners({AllureTestNg.class,PostsListener.class})
 public class PostsTest {
     static {
         System.setProperty("webdriver.chrome.driver", "src/chromedriver.exe");
@@ -34,7 +32,7 @@ public class PostsTest {
     private final CreatePostPO createPostPage = PageFactory.getPage(PageType.NEW_POST, CreatePostPO.class);
     private static List<PostRow> testData = new ArrayList<>();
 
-    @BeforeClass
+    @BeforeTest
     public void login() {
         loginPage.userLoginWoRemember(user);
     }
@@ -44,7 +42,7 @@ public class PostsTest {
         postsPage.openPage();
     }
 
-    @AfterClass
+    @AfterTest
     public void cleanup() {
         postsPage.goToMine(user);
         testData.stream()
@@ -58,7 +56,8 @@ public class PostsTest {
         loginPage.close();
     }
 
-    @Test(priority = 1)
+    @Test(priority = 1,
+            groups = {"smoke", "post"})
     public void createNewPostAsDraftTest() {
         postsPage.clickAndRedirectTo(postsPage.getAddNewBttn(), PageType.NEW_POST.getUrl());
 
@@ -81,7 +80,8 @@ public class PostsTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 1)
+    @Test(priority = 1,
+            groups = {"smoke", "post"})
     public void createNewPostAsPublishedTest() {
         postsPage.clickAndRedirectTo(postsPage.getAddNewBttn(), PageType.NEW_POST.getUrl());
 
@@ -103,7 +103,8 @@ public class PostsTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 2)
+    @Test(priority = 2,
+            groups = {"smoke", "post"})
     public void publishDraftPostTest() {
         postsPage.goToMine(user);
         var postObject = testData.stream().filter(PostRow::isDraft).findFirst().get();
@@ -116,7 +117,8 @@ public class PostsTest {
         Assert.assertFalse(postObject.isDraft(), "Post status have not been changed");
     }
 
-    @Test(priority = 2)
+    @Test(priority = 2,
+            groups = {"smoke", "post"})
     public void turnPublishedPostToDraftTest() {
         postsPage.goToMine(user);
         var postObject = testData.stream().filter(element -> !element.isDraft()).findFirst().get();
@@ -129,7 +131,8 @@ public class PostsTest {
         Assert.assertTrue(postObject.isDraft(), "Post status have not been changed");
     }
 
-    @Test(priority = 3)
+    @Test(priority = 3,
+            groups = {"smoke", "post"})
     public void movePostToTrash() {
         postsPage.goToMine(user);
         var postObject = testData.stream().filter(element -> !element.isTrash()).findFirst().get();

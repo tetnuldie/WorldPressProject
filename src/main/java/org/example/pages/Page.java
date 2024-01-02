@@ -9,4 +9,5 @@ public interface Page {
     boolean isVisible(SelenideElement element);
     void openPageWithWaiter(String url);
     void clickAndRedirectTo(SelenideElement element, String expectedUrl);
+    void close();
 }

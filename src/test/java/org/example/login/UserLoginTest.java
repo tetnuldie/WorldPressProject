@@ -1,18 +1,18 @@
 package org.example.login;
 
 import com.codeborne.selenide.Configuration;
+import io.qameta.allure.testng.AllureTestNg;
 import org.example.pages.*;
 import org.example.pages.sidemenu.SideMenuElement;
 import org.example.users.UserPermissions;
 import org.example.users.UserFactory;
 import org.example.users.UserType;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
 
 import static com.codeborne.selenide.Selenide.webdriver;
 
+@Listeners({AllureTestNg.class,LoginListener.class})
 public class UserLoginTest {
     static {
         System.setProperty("webdriver.chrome.driver", "src/chromedriver.exe");
@@ -20,7 +20,8 @@ public class UserLoginTest {
     }
     private LoginPO loginPage =  PageFactory.getPage(PageType.LOGIN, LoginPO.class);
     private MainPagePO mainPage = PageFactory.getPage(PageType.MAIN, MainPagePO.class);
-    @Test(dataProvider = "userDataProvider")
+    @Test(dataProvider = "userDataProvider",
+            groups = {"smoke", "login"})
     public void userPermissionsTest(String user){
         SoftAssert softAssert = new SoftAssert();
         loginPage.userLoginWoRemember(UserFactory.getUser(UserType.valueOf(user.toUpperCase())));
@@ -34,8 +35,12 @@ public class UserLoginTest {
 
     }
     @AfterMethod
+    public void logout(){
+       PageMenuFunc.logOut();
+    }
+    @AfterTest
     public void close(){
-        webdriver().driver().getWebDriver().quit();
+        loginPage.close();
     }
 
     @DataProvider
