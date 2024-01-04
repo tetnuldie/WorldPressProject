@@ -12,39 +12,31 @@ import org.testng.asserts.SoftAssert;
 
 import static com.codeborne.selenide.Selenide.webdriver;
 
-@Listeners({AllureTestNg.class,LoginListener.class})
-public class UserLoginTest {
-    static {
-        System.setProperty("webdriver.chrome.driver", "src/chromedriver.exe");
-        Configuration.startMaximized = true;
-    }
-    private LoginPO loginPage =  PageFactory.getPage(PageType.LOGIN, LoginPO.class);
-    private MainPagePO mainPage = PageFactory.getPage(PageType.MAIN, MainPagePO.class);
+@Listeners({AllureTestNg.class, LoginListener.class})
+public class UserLoginTest extends LoginTestSetup {
     @Test(dataProvider = "userDataProvider",
             groups = {"smoke", "login"})
-    public void userPermissionsTest(String user){
+    public void userPermissionsTest(String user) {
         SoftAssert softAssert = new SoftAssert();
-        loginPage.userLoginWoRemember(UserFactory.getUser(UserType.valueOf(user.toUpperCase())));
+        steps.userLoginWoRemember(UserFactory.getUser(UserType.valueOf(user.toUpperCase())));
 
         UserPermissions.getUserPermissions(UserType.valueOf(user.toUpperCase())).forEach(element -> {
-            softAssert.assertTrue(mainPage.isVisible(PageMenuFunc.getSideMenuElement(SideMenuElement.valueOf(element.toUpperCase()))),
-                    "Element "+ element + " is not visible for user "+ user);
+            softAssert.assertTrue(steps.isVisibleOnMainPage(PageMenuFunc.getSideMenuElement(SideMenuElement.valueOf(element.toUpperCase()))),
+                    "Element " + element + " is not visible for user " + user);
         });
 
         softAssert.assertAll();
 
     }
+
     @AfterMethod
-    public void logout(){
-       PageMenuFunc.logOut();
-    }
-    @AfterTest
-    public void close(){
-        loginPage.close();
+    public void logout() {
+        PageMenuFunc.logOut();
     }
 
+
     @DataProvider
-    public Object[] userDataProvider(){
+    public Object[] userDataProvider() {
         return new Object[]{
                 "SUBSCRIBER",
                 "CONTRIBUTOR",

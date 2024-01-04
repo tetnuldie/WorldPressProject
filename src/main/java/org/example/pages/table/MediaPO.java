@@ -31,52 +31,5 @@ public class MediaPO extends TablePagePO {
         return getTablePageRoot().$x("./form[@id='posts-filter']/table").shouldBe(Condition.visible);
     }
 
-    @Override
-    public SelenideElement getTableRowById(int id) {
-        logger.log(Level.INFO, "trying to get mediafile by id "+id);
-        return getTableRows()
-                .filter(Condition.id(String.format("post-%d", id)))
-                .first().shouldBe(Condition.visible);
-    }
 
-    public MediaRow getRowAsObject(SelenideElement trRoot) {
-        logger.log(Level.INFO, "trying to get mediafile "+trRoot.getAttribute("id") + " as row object");
-        var rowObject = new MediaRow(trRoot);
-        rowObject.init();
-        return rowObject;
-    }
-
-    public void deleteChecked() {
-        logger.log(Level.INFO, "performing delete checked rows");
-        getBulkActionsDropdown().selectOptionByValue("delete");
-        click(getBulkActionsApplyBttn());
-        switchTo().alert().accept();
-        switchTo().defaultContent();
-        getConfirmationPopupWindow();
-    }
-
-    public void acceptConfirm() {
-        executeJavaScript(
-                "window.confirm = function() {return true;};"
-        );
-    }
-
-
-    @Override
-    public void goToMine(User user) {
-        logger.log(Level.INFO, "not implemented");
-
-    }
-
-    @Override
-    public void goToTrash() {
-        logger.log(Level.INFO, "not implemented");
-
-    }
-
-    @Override
-    public void quickEdit(String text) {
-        logger.log(Level.INFO, "not implemented");
-
-    }
 }

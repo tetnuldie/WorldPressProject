@@ -38,25 +38,6 @@ public class LoginPO implements Page {
         webdriver().driver().getWebDriver().quit();
     }
 
-    public void userLoginWoRemember(User user) {
-        logger.log(Level.INFO, "performing login of user "+user.getLogin()+" wo remember");
-        openPage();
-        getLoginField().clear();
-        getLoginField().sendKeys(user.getLogin());
-        getPassField().clear();
-        getPassField().sendKeys(user.getPassword());
-        clickAndRedirectTo(getSubmitBttn(), user.getUserType() == UserType.SUBSCRIBER ? PageType.PROFILE.getUrl() : PageType.MAIN.getUrl());
-    }
-
-    public void userLoginWithRemember(User user) {
-        logger.log(Level.INFO, "performing login of user "+user.getLogin()+" with remember");
-        openPage();
-        getLoginField().sendKeys(user.getLogin());
-        getPassField().sendKeys(user.getPassword());
-        getRememberMeCheckbox().click();
-        clickAndRedirectTo(getSubmitBttn(), user.getUserType() == UserType.SUBSCRIBER ? PageType.PROFILE.getUrl() : PageType.MAIN.getUrl());
-    }
-
     @Override
     public void hover(SelenideElement element) {
         logger.log(Level.INFO, "hovering on "+element.getSearchCriteria());

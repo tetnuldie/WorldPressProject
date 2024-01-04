@@ -44,14 +44,6 @@ public class UploadMediaPO implements PageMenuFunc, Page {
         return $x("//div[@class='media-item-wrapper']");
     }
 
-    public int uploadFile(File file) {
-        logger.log(Level.INFO, "performing upload file "+file.getAbsolutePath());
-        getFileInput().uploadFile(file);
-        Selenide.Wait().withTimeout(Duration.ofSeconds(100)).until(webDriver -> getUploadedFileWrapper().is(Condition.visible));
-
-        return Integer.parseInt(getUploadedFileWrapper().$x(".//a").getAttribute("href").split("=")[1].split("&")[0]);
-    }
-
     @Override
     public void hover(SelenideElement element) {
         logger.log(Level.INFO, "hovering on " + element.getSearchCriteria());

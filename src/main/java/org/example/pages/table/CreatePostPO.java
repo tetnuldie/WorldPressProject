@@ -23,6 +23,10 @@ public class CreatePostPO implements Page {
         this.pageType = pageType;
     }
 
+    public PageType getPageType() {
+        return pageType;
+    }
+
     public SelenideElement getPostHeaderInputField() {
         logger.log(Level.INFO, "trying to get header input field");
         return $x("/html/body//h1[@role='textbox']").shouldBe(Condition.visible);
@@ -70,19 +74,6 @@ public class CreatePostPO implements Page {
         return Integer.parseInt(WebDriverRunner.url().split("=")[1].split("&")[0]);
     }
 
-    public void fillPostContent(String textHeader, String textBody) {
-        logger.log(Level.INFO, "send keys to post header "+textHeader + " and body "+textBody);
-        switchTo().frame("editor-canvas");
-        getPostHeaderInputField().sendKeys(textHeader);
-        getPostBodyInputField().sendKeys(textBody);
-        switchTo().defaultContent();
-    }
-
-    public void waitForSuccessPopup() {
-        logger.log(Level.INFO, "waiting for success popup");
-        Selenide.Wait().withTimeout(Duration.ofSeconds(100)).until(webDriver -> $x("//div[@class='components-snackbar__content']").is(Condition.visible));
-    }
-
     public SelenideElement getToDraftBttn() {
         logger.log(Level.INFO, "trying to get 'Switch to draft' bttn");
         return $x("//div[@class='components-panel']//button[contains(@class, 'switch-to-draft')]").shouldBe(Condition.visible);
@@ -94,49 +85,6 @@ public class CreatePostPO implements Page {
                 .should(Condition.appear)
                 .$x(".//button[contains(@class, 'is-primary')]")
                 .shouldBe(Condition.visible);
-    }
-
-    public int saveDraftPost(String postHeader, String postBody) {
-        logger.log(Level.INFO, "performing save post as draft");
-        fillPostContent(postHeader, postBody);
-        click(getSaveDraftBttn());
-        waitForSuccessPopup();
-        return getNewPostIdAfterDraft();
-    }
-
-    public int saveDraftPostAndBack(String postHeader, String postBody) {
-        logger.log(Level.INFO, "performing save post as draft and back");
-        fillPostContent(postHeader, postBody);
-        click(getSaveDraftBttn());
-        waitForSuccessPopup();
-        int id = getNewPostIdAfterDraft();
-        openPageWithWaiter(pageType == PageType.NEW_POST ? PageType.POSTS.getUrl() : PageType.PAGES.getUrl());
-        return id;
-    }
-
-    public void publishDraftFromEditScreen() {
-        logger.log(Level.INFO, "performing publish draft post");
-        click(getPublishBttn());
-        click(getEditorPublishBttn());
-        getPostPublishHeader();
-        openPageWithWaiter(pageType == PageType.NEW_POST ? PageType.POSTS.getUrl() : PageType.PAGES.getUrl());
-    }
-
-    public int createNewPublishedPost(String postHeader, String postBody) {
-        logger.log(Level.INFO, "performing crate new published post");
-        int newPostId = saveDraftPost(postHeader, postBody);
-        publishDraftFromEditScreen();
-        openPageWithWaiter(pageType == PageType.NEW_POST ? PageType.POSTS.getUrl() : PageType.PAGES.getUrl());
-        return newPostId;
-    }
-
-    public void switchPublishedPostToDraft() {
-        logger.log(Level.INFO, "performing switch published post to draft");
-        click(getToDraftBttn());
-        click(getAreUSurePopupOkButton());
-        waitForSuccessPopup();
-        openPageWithWaiter(pageType == PageType.NEW_POST ? PageType.POSTS.getUrl() : PageType.PAGES.getUrl());
-
     }
 
     @Override

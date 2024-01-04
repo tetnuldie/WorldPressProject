@@ -23,15 +23,11 @@ public abstract class TablePagePO implements PageMenuFunc, Page {
         this.pageType = pageType;
     }
 
+    public PageType getPageType() {
+        return pageType;
+    }
+
     public abstract SelenideElement getContentTableRoot();
-
-    public abstract SelenideElement getTableRowById(int id);
-
-    public abstract void goToMine(User user);
-
-    public abstract void goToTrash();
-
-    public abstract void quickEdit(String text);
 
     public SelenideElement getTablePageRoot() {
         logger.log(Level.INFO, "trying to find page root element");
@@ -61,19 +57,6 @@ public abstract class TablePagePO implements PageMenuFunc, Page {
     public SelenideElement getConfirmationPopupWindow() {
         logger.log(Level.INFO, "trying to find confirmation popup");
         return getTablePageRoot().$x(".//div[@class='updated notice is-dismissible']").shouldBe(Condition.visible);
-    }
-
-    public void moveCheckedToTrash() {
-        logger.log(Level.INFO, "performing move checked rows to trash");
-        getBulkActionsDropdown().selectOptionByValue("trash");
-        click(getBulkActionsApplyBttn());
-        click(getConfirmationPopupWindow().$x("./button"));
-    }
-
-    public void deleteChecked() {
-        logger.log(Level.INFO, "performing delete checked rows");
-        getBulkActionsDropdown().selectOptionByValue("delete");
-        click(getBulkActionsApplyBttn());
     }
 
     @Override

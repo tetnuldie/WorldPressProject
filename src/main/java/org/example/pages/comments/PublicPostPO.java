@@ -3,20 +3,12 @@ package org.example.pages.comments;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import com.codeborne.selenide.ex.ElementNotFound;
-import com.codeborne.selenide.ex.TimeoutException;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.example.pages.Page;
-import org.example.pages.PageException;
 import org.example.pages.PageType;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import java.time.Duration;
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
 
 import static com.codeborne.selenide.Selenide.*;
 
@@ -65,58 +57,10 @@ public class PublicPostPO implements Page {
         return $x("//em [@class='comment-awaiting-moderation']").getText();
     }
 
-    public CommentObject publishComment(String comment, String author, String email, String url) {
-        logger.log(Level.INFO, "Starting publish new comment\n text- "+comment+"Author - "+author+"E-mail - "+email+"Site- "+url);
-        CommentObject commentObj = new CommentObject(comment, author, email, url);
-        openPage();
-        getCommentBody().sendKeys(commentObj.getComment());
-        getAuthorField().sendKeys(commentObj.getAuthor());
-        getEmailField().sendKeys(commentObj.getEmail());
-        getSiteField().sendKeys(commentObj.getUrl());
-        click(getPublishBttn());
-        commentObj.setId(Integer.parseInt(getCommentPreview().$x("./li").getAttribute("id").split("-")[1]));
-        return commentObj;
-    }
-
-    public CommentObject publishComment() throws PageException {
-        String ts = String.valueOf(Instant.now().getEpochSecond());
-        CommentObject commentObj = new CommentObject("testCommentBody " + ts, "testAnonymous " + ts, "anonymos@mail.com", "anonymous.com");
-        logger.log(Level.INFO, "Starting publish new comment\n"+commentObj);
-        openPage();
-        getCommentBody().sendKeys(commentObj.getComment());
-        getAuthorField().sendKeys(commentObj.getAuthor());
-        getEmailField().sendKeys(commentObj.getEmail());
-        getSiteField().sendKeys(commentObj.getUrl());
-        click(getPublishBttn());
-        try {
-            getCommentPreview();
-        } catch (ElementNotFound | RuntimeException e){
-            if(getErrorPage().isDisplayed()) {
-                click(getErrorPage().$x(".//a"));
-                throw new PageException("Too quick commenting");
-            }
-        }
-        commentObj.setId(Integer.parseInt(getCommentPreview().$x("./li").getAttribute("id").split("-")[1]));
-        return commentObj;
-    }
-
     public SelenideElement getErrorPage(){
         return $x("//*[@id='error-page']");
     }
 
-    public List<CommentObject> publishCommentXTimes(int x){
-        List<CommentObject> result = new ArrayList<>();
-        for (int i = 0; i < x; ) {
-            openPage();
-            try {
-                result.add(publishComment());
-            } catch (PageException e) {
-                continue;
-            }
-            i++;
-        }
-        return result;
-    }
 
     @Override
     public void hover(SelenideElement element) {

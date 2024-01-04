@@ -14,9 +14,8 @@ import java.io.File;
 public class App
 {
     static {
-        System.setProperty("webdriver.chrome.driver", "src/chromedriver.exe");
-        Configuration.startMaximized = true;
-        Configuration.timeout = 10000;
+        System.setProperty("webdriver.gecko.driver", "src/geckodriver.exe");
+        Configuration.browser = "firefox";
     }
     public static void main( String[] args )
     {
@@ -25,8 +24,8 @@ public class App
         UploadMediaPO upload = new UploadMediaPO(PageType.UPLOAD_MEDIA);
         File file = new File("src/Resources/pepe.jpg");
 
-/*        login.openPage();
-        login.userLoginWoRemember(UserFactory.getUser(UserType.EDITOR));
+        login.openPage();
+ /*       login.userLoginWoRemember(UserFactory.getUser(UserType.EDITOR));
 
         media.openPage();
         media.clickAndRedirectTo(media.getAddNewBttn(), PageType.UPLOAD_MEDIA.getUrl());

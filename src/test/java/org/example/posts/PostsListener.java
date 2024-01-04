@@ -9,6 +9,7 @@ import java.util.Arrays;
 
 public class PostsListener implements ITestListener {
     private final Logger logger = Logger.getLogger(PostsListener.class);
+
     public void onTestStart(ITestResult result) {
         logger.log(Level.INFO, "Starting: " + result.getName());
 
@@ -19,7 +20,7 @@ public class PostsListener implements ITestListener {
         logger.log(Level.INFO, "Test passed: " + result.getName());
 
         Object[] params = result.getParameters();
-        logger.log(Level.INFO, "Params:\n"+ Arrays.toString(params));
+        logger.log(Level.INFO, "Params:\n" + Arrays.toString(params));
     }
 
     @Override
@@ -27,6 +28,6 @@ public class PostsListener implements ITestListener {
         logger.log(Level.ERROR, "Test Failed: " + result.getName());
 
         Object[] params = result.getParameters();
-        logger.log(Level.ERROR, "Params:\n"+ Arrays.toString(params));
+        logger.log(Level.ERROR, "Params:\n" + Arrays.toString(params));
     }
 }
