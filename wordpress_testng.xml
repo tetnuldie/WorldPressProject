@@ -1,0 +1,105 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="WordPressSuite" verbose="1">
+    <test name="test for login func">
+<!--        <groups>
+            <run>
+                <include name="login"/>
+            </run>
+        </groups>-->
+        <classes>
+            <class name="org.example.login.UserLoginTest">
+                <methods>
+                    <include name="userPermissionsTest">
+                    </include>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="test for page func">
+<!--        <groups>
+            <run>
+                <include name="pages"/>
+            </run>
+        </groups>-->
+        <classes>
+            <class name="org.example.page.PagesTest">
+                <methods>
+                    <include name="createNewPageAsDraftTest">
+                    </include>
+                    <include name="createNewPageAsPublishedTest">
+                    </include>
+                    <include name="publishDraftPageTest">
+                    </include>
+                    <include name="turnPublishedPageToDraftTest">
+                    </include>
+                    <include name="movePageToTrash">
+                    </include>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="test for post func">
+<!--        <groups>
+            <run>
+                <include name="post"/>
+            </run>
+        </groups>-->
+        <classes>
+            <class name="org.example.posts.PostsTest">
+                <methods>
+                    <include name="createNewPostAsDraftTest">
+                    </include>
+                    <include name="createNewPostAsPublishedTest">
+                    </include>
+                    <include name="publishDraftPostTest">
+                    </include>
+                    <include name="turnPublishedPostToDraftTest">
+                    </include>
+                    <include name="movePostToTrash">
+                    </include>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="test for comments func">
+<!--        <groups>
+            <run>
+                <include name="comments"/>
+            </run>
+        </groups>-->
+        <classes>
+            <class name="org.example.comments.CommentsTest">
+                <methods>
+                    <include name="anonymousCommentTest">
+                    </include>
+                    <include name="editCommentTest">
+                    </include>
+                    <include name="approveCommentTest">
+                    </include>
+                    <include name="spamCommentTest">
+                    </include>
+                    <include name="moveCommentToTrashTest">
+                    </include>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="test for media func">
+<!--        <groups>
+            <run>
+                <include name="media"/>
+            </run>
+        </groups>-->
+        <classes>
+            <class name="org.example.media.MediaTest">
+                <methods>
+                    <include name="uploadMediaTest">
+                    </include>
+                    <include name="deleteMediaTest">
+                    </include>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

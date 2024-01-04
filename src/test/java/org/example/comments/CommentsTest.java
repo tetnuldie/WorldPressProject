@@ -2,6 +2,7 @@ package org.example.comments;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
+import io.qameta.allure.testng.AllureTestNg;
 import org.example.pages.LoginPO;
 import org.example.pages.PageFactory;
 import org.example.pages.PageType;
@@ -13,15 +14,12 @@ import org.example.users.User;
 import org.example.users.UserFactory;
 import org.example.users.UserType;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-
+@Listeners({AllureTestNg.class, CommentsListener.class})
 public class CommentsTest {
     static {
         System.setProperty("webdriver.chrome.driver", "src/chromedriver.exe");
@@ -36,13 +34,9 @@ public class CommentsTest {
     private List<CommentObject> testDataComments = new ArrayList<>();
     private List<CommentRow> testDataRows = new ArrayList<>();
 
-    @BeforeClass
+    @BeforeTest
     public void login() {
-        for (int i = 0; i < 3; i++) {
-            publicPostPage.openPage();
-            testDataComments.add(publicPostPage.publishComment());
-            Selenide.sleep(7500);
-        }
+        testDataComments = publicPostPage.publishCommentXTimes(3);
         loginPage.userLoginWoRemember(user);
         commentsPage.openPage();
         testDataComments.stream().forEach(element -> {
@@ -55,7 +49,7 @@ public class CommentsTest {
         commentsPage.openPage();
     }
 
-    @AfterClass
+    @AfterTest
     public void cleanup() {
         commentsPage.openPage();
         testDataRows.stream()
@@ -72,17 +66,19 @@ public class CommentsTest {
                 .filter(element -> !element.isSpam())
                 .forEach(CommentRow::checkRow);
         commentsPage.deleteChecked();
-        loginPage.close();
+        commentsPage.close();
     }
 
-    @Test(priority = 1)
+    @Test(priority = 1,
+            groups = {"smoke", "comments"})
     public void anonymousCommentTest() {
         var commentRow = testDataRows.stream().findFirst().orElse(null).getId();
 
         Assert.assertNotNull(commentRow, "New comment not displayed on page layout");
     }
 
-    @Test(priority = 2)
+    @Test(priority = 2,
+            groups = {"smoke", "comments"})
     public void editCommentTest() {
         var commentRow = testDataRows.stream().findFirst().orElse(null);
         String oldCommentText = commentRow.getBodyText();
@@ -93,7 +89,8 @@ public class CommentsTest {
         Assert.assertNotEquals(commentRow.getBodyText(), oldCommentText, "Comment have not been edited");
     }
 
-    @Test(priority = 2)
+    @Test(priority = 2,
+            groups = {"smoke", "comments"})
     public void approveCommentTest() {
         var commentRow = testDataRows.stream().filter(CommentRow::isPending).findFirst().orElse(null);
 
@@ -105,7 +102,8 @@ public class CommentsTest {
         Assert.assertFalse(commentRow.isPending(), "Comment have not been approved");
     }
 
-    @Test(priority = 2)
+    @Test(priority = 2,
+            groups = {"smoke", "comments"})
     public void spamCommentTest() {
         var commentRow = testDataRows.stream().filter(element -> !element.isSpam()).findFirst().orElse(null);
 
@@ -117,7 +115,8 @@ public class CommentsTest {
         Assert.assertTrue(commentRow.isSpam(), "Comment have not been marked as spam");
     }
 
-    @Test(priority = 3)
+    @Test(priority = 3,
+            groups = {"smoke", "comments"})
     public void moveCommentToTrashTest() {
         var commentRow = testDataRows.stream().filter(element -> !element.isTrash() && !element.isSpam()).findFirst().orElse(null);
 

@@ -1,6 +1,7 @@
 package org.example.media;
 
 import com.codeborne.selenide.Configuration;
+import io.qameta.allure.testng.AllureTestNg;
 import org.example.pages.LoginPO;
 import org.example.pages.PageFactory;
 import org.example.pages.PageType;
@@ -10,13 +11,11 @@ import org.example.users.User;
 import org.example.users.UserFactory;
 import org.example.users.UserType;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
 
 import java.io.File;
-
+@Listeners({AllureTestNg.class,MediaListener.class})
 public class MediaTest {
     static {
         System.setProperty("webdriver.chrome.driver", "src/chromedriver.exe");
@@ -31,7 +30,7 @@ public class MediaTest {
     private final File file = new File("src/Resources/pepe.jpg");
     private int fileId;
 
-    @BeforeClass
+    @BeforeTest
     public void login() {
         loginPage.userLoginWoRemember(user);
     }
@@ -41,7 +40,13 @@ public class MediaTest {
         mediaPage.openPage();
     }
 
-    @Test
+    @AfterTest
+    public void cleanup(){
+        loginPage.close();
+    }
+
+
+    @Test(groups = {"smoke", "media"})
     public void uploadMediaTest(){
         mediaPage.clickAndRedirectTo(mediaPage.getAddNewBttn(), PageType.UPLOAD_MEDIA.getUrl());
         fileId = uploadMediaPage.uploadFile(file);
@@ -59,7 +64,8 @@ public class MediaTest {
         softAssert.assertAll();
     }
 
-    @Test(dependsOnMethods = "uploadMediaTest")
+    @Test(dependsOnMethods = "uploadMediaTest",
+            groups = {"smoke", "media"})
     public void deleteMediaTest(){
         var mediaRow = mediaPage.getRowAsObject(mediaPage.getTableRowById(fileId));
         mediaRow.init();

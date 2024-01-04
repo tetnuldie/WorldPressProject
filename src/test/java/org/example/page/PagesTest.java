@@ -1,6 +1,7 @@
 package org.example.page;
 
 import com.codeborne.selenide.Configuration;
+import io.qameta.allure.testng.AllureTestNg;
 import org.example.pages.*;
 import org.example.pages.table.CreatePostPO;
 import org.example.pages.table.PostsPO;
@@ -15,7 +16,7 @@ import org.testng.asserts.SoftAssert;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-
+@Listeners({AllureTestNg.class,PagesListener.class})
 public class PagesTest {
     static {
         System.setProperty("webdriver.chrome.driver", "src/chromedriver.exe");
@@ -29,7 +30,7 @@ public class PagesTest {
     private final CreatePostPO createPostPage = PageFactory.getPage(PageType.NEW_PAGE, CreatePostPO.class);
     private static List<PostRow> testData = new ArrayList<>();
 
-    @BeforeClass
+    @BeforeTest
     public void login() {
         loginPage.userLoginWoRemember(user);
     }
@@ -39,7 +40,7 @@ public class PagesTest {
         postsPage.openPage();
     }
 
-    @AfterClass
+    @AfterTest
     public void cleanup() {
         postsPage.goToMine(user);
         testData.stream()
@@ -53,7 +54,8 @@ public class PagesTest {
         loginPage.close();
     }
 
-    @Test(priority = 1)
+    @Test(priority = 1,
+            groups = {"smoke", "pages"})
     public void createNewPageAsDraftTest() {
         postsPage.clickAndRedirectTo(postsPage.getAddNewBttn(), PageType.NEW_PAGE.getUrl());
 
@@ -76,7 +78,8 @@ public class PagesTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 1)
+    @Test(priority = 1,
+            groups = {"smoke", "pages"})
     public void createNewPageAsPublishedTest() {
         postsPage.clickAndRedirectTo(postsPage.getAddNewBttn(), PageType.NEW_PAGE.getUrl());
 
@@ -98,7 +101,8 @@ public class PagesTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 2)
+    @Test(priority = 2,
+            groups = {"smoke", "pages"})
     public void publishDraftPageTest() {
         postsPage.goToMine(user);
         var postObject = testData.stream().filter(PostRow::isDraft).findFirst().get();
@@ -111,7 +115,8 @@ public class PagesTest {
         Assert.assertFalse(postObject.isDraft(), "Post status have not been changed");
     }
 
-    @Test(priority = 2)
+    @Test(priority = 2,
+            groups = {"smoke", "pages"})
     public void turnPublishedPageToDraftTest() {
         postsPage.goToMine(user);
         var postObject = testData.stream().filter(element -> !element.isDraft()).findFirst().get();
@@ -124,7 +129,8 @@ public class PagesTest {
         Assert.assertTrue(postObject.isDraft(), "Post status have not been changed");
     }
 
-    @Test(priority = 3)
+    @Test(priority = 3,
+            groups = {"smoke", "pages"})
     public void movePageToTrash() {
         postsPage.goToMine(user);
         var postObject = testData.stream().filter(element -> !element.isTrash()).findFirst().get();

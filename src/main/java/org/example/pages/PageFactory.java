@@ -1,5 +1,8 @@
 package org.example.pages;
 
+import org.apache.log4j.Level;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.example.pages.comments.PublicPostPO;
 import org.example.pages.table.*;
 
@@ -8,6 +11,7 @@ import java.util.Map;
 
 public class PageFactory {
     private static Map<PageType, Page> repository;
+    private static final Logger logger = LogManager.getLogger(PageFactory.class);
 
     static {
         repository = new HashMap<>();
@@ -29,7 +33,7 @@ public class PageFactory {
         if (pageClass.isInstance(page)) {
             return pageClass.cast(page);
         } else {
-            //log
+            logger.log(Level.WARN, "Failed to cast "+pageType.toString()+ " to "+pageClass.getName());
             throw new IllegalArgumentException("Invalid page type");
         }
     }
