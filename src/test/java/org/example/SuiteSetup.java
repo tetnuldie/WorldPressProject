@@ -21,11 +21,14 @@ public class SuiteSetup {
                 System.setProperty("webdriver.gecko.driver", "src/geckodriver.exe");
                 Configuration.browser = "firefox";
             }
+            case "edge" -> {
+                System.setProperty("webdriver.edge.driver", "src/msedgedriver.exe");
+                Configuration.browser = "edge";
+            }
             default -> {
                 logger.log(Level.ERROR, "Wrong browser tag provided; Check *_testng.xml suite params");
             }
         }
-  //      Configuration.startMaximized = true;
         Configuration.browserSize = "1920x1080";
     }
 }

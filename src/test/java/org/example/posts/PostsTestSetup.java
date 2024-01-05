@@ -3,7 +3,7 @@ package org.example.posts;
 import com.codeborne.selenide.Configuration;
 import org.example.SuiteSetup;
 import org.example.login.UserLoginSteps;
-import org.example.pages.table.tablerow.PostRow;
+import org.example.pages.pageobject.tablerow.PostRow;
 import org.example.users.User;
 import org.example.users.UserFactory;
 import org.example.users.UserType;

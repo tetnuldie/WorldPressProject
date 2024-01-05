@@ -1,16 +1,16 @@
 package org.example.login;
 
-import com.codeborne.selenide.Configuration;
 import io.qameta.allure.testng.AllureTestNg;
 import org.example.pages.*;
-import org.example.pages.sidemenu.SideMenuElement;
+import org.example.pages.menuelements.SideMenuElement;
 import org.example.users.UserPermissions;
 import org.example.users.UserFactory;
 import org.example.users.UserType;
 import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
 
-import static com.codeborne.selenide.Selenide.webdriver;
+import static org.example.login.UserLoginSteps.userLoginWoRemember;
+import static org.example.login.UserLoginSteps.logOut;
 
 @Listeners({AllureTestNg.class, LoginListener.class})
 public class UserLoginTest extends LoginTestSetup {
@@ -18,10 +18,10 @@ public class UserLoginTest extends LoginTestSetup {
             groups = {"smoke", "login"})
     public void userPermissionsTest(String user) {
         SoftAssert softAssert = new SoftAssert();
-        steps.userLoginWoRemember(UserFactory.getUser(UserType.valueOf(user.toUpperCase())));
+        userLoginWoRemember(UserFactory.getUser(UserType.valueOf(user.toUpperCase())));
 
         UserPermissions.getUserPermissions(UserType.valueOf(user.toUpperCase())).forEach(element -> {
-            softAssert.assertTrue(steps.isVisibleOnMainPage(PageMenuFunc.getSideMenuElement(SideMenuElement.valueOf(element.toUpperCase()))),
+            softAssert.assertTrue(steps.isVisibleOnMainPage(MainMenuFunc.getSideMenuElement(SideMenuElement.valueOf(element.toUpperCase()))),
                     "Element " + element + " is not visible for user " + user);
         });
 
@@ -31,7 +31,7 @@ public class UserLoginTest extends LoginTestSetup {
 
     @AfterMethod
     public void logout() {
-        PageMenuFunc.logOut();
+        logOut();
     }
 
 

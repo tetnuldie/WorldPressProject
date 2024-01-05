@@ -1,21 +1,12 @@
 package org.example.page;
 
-import com.codeborne.selenide.Configuration;
 import io.qameta.allure.testng.AllureTestNg;
-import org.example.pages.*;
-import org.example.pages.table.CreatePostPO;
-import org.example.pages.table.PostsPO;
-import org.example.pages.table.tablerow.PostRow;
-import org.example.users.User;
-import org.example.users.UserFactory;
-import org.example.users.UserType;
+import org.example.pages.pageobject.tablerow.PostRow;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
 
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
 
 @Listeners({AllureTestNg.class, PagesListener.class})
 public class PagesTest extends PagesTestSetup {

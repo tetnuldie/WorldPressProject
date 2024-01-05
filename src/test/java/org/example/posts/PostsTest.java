@@ -1,8 +1,7 @@
 package org.example.posts;
 
 import io.qameta.allure.testng.AllureTestNg;
-import org.example.pages.PageType;
-import org.example.pages.table.tablerow.PostRow;
+import org.example.pages.pageobject.tablerow.PostRow;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;

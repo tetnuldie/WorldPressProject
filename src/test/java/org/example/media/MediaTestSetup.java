@@ -2,11 +2,6 @@ package org.example.media;
 
 import com.codeborne.selenide.Configuration;
 import org.example.SuiteSetup;
-import org.example.pages.LoginPO;
-import org.example.pages.PageFactory;
-import org.example.pages.PageType;
-import org.example.pages.table.MediaPO;
-import org.example.pages.table.UploadMediaPO;
 import org.example.users.User;
 import org.example.users.UserFactory;
 import org.example.users.UserType;

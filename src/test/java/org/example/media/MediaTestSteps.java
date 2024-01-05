@@ -5,14 +5,12 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.example.comments.CommentsTestSteps;
 import org.example.login.UserLoginSteps;
-import org.example.pages.LoginPO;
 import org.example.pages.PageFactory;
 import org.example.pages.PageType;
-import org.example.pages.table.MediaPO;
-import org.example.pages.table.UploadMediaPO;
-import org.example.pages.table.tablerow.MediaRow;
+import org.example.pages.pageobject.tablepage.MediaPO;
+import org.example.pages.pageobject.UploadMediaPO;
+import org.example.pages.pageobject.tablerow.MediaRow;
 import org.example.users.User;
 
 import java.io.File;

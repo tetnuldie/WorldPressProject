@@ -7,9 +7,9 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.example.pages.PageFactory;
 import org.example.pages.PageType;
-import org.example.pages.table.CreatePostPO;
-import org.example.pages.table.PostsPO;
-import org.example.pages.table.tablerow.PostRow;
+import org.example.pages.pageobject.CreatePostPO;
+import org.example.pages.pageobject.tablepage.PostsPO;
+import org.example.pages.pageobject.tablerow.PostRow;
 import org.example.users.User;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
@@ -174,6 +174,9 @@ public class PostsTestSteps {
 
     public void switchPublishedPostToDraft() {
         logger.log(Level.INFO, "performing switch published post to draft");
+        if(!Boolean.getBoolean(createPostPage.getSettingsBttn().getAttribute("aria-expanded"))){
+            createPostPage.click(createPostPage.getSettingsBttn());
+        }
         createPostPage.click(createPostPage.getToDraftBttn());
         createPostPage.click(createPostPage.getAreUSurePopupOkButton());
         waitForSuccessPopup();

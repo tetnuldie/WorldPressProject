@@ -3,7 +3,7 @@ package org.example.comments;
 import com.codeborne.selenide.Configuration;
 import org.example.SuiteSetup;
 import org.example.pages.comments.CommentObject;
-import org.example.pages.table.tablerow.CommentRow;
+import org.example.pages.pageobject.tablerow.CommentRow;
 import org.example.users.User;
 import org.example.users.UserFactory;
 import org.example.users.UserType;

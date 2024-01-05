@@ -1,7 +1,7 @@
 package org.example.comments;
 
 import io.qameta.allure.testng.AllureTestNg;
-import org.example.pages.table.tablerow.CommentRow;
+import org.example.pages.pageobject.tablerow.CommentRow;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
