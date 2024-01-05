@@ -5,7 +5,6 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.example.pages.PageAction;
 import org.example.pages.PageType;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
