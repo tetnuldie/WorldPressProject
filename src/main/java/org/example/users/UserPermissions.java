@@ -1,7 +1,5 @@
 package org.example.users;
 
-import org.example.pages.sidemenu.SideMenuElement;
-
 import java.util.*;
 
 public class UserPermissions {

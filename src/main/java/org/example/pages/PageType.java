@@ -14,11 +14,12 @@ public enum PageType {
     UPLOAD_MEDIA("https://wordpress-test-app-for-selenium.azurewebsites.net/wp-admin/media-new.php");
 
     private String url;
-    PageType(String url){
+
+    PageType(String url) {
         this.url = url;
     }
 
-    public String getUrl(){
+    public String getUrl() {
         return url;
     }
 }

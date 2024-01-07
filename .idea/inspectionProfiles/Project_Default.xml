@@ -5,12 +5,12 @@
       <option name="groups">
         <value>
           <list size="6">
-            <item index="0" class="java.lang.String" itemvalue="smoke" />
-            <item index="1" class="java.lang.String" itemvalue="comments" />
-            <item index="2" class="java.lang.String" itemvalue="media" />
-            <item index="3" class="java.lang.String" itemvalue="login" />
-            <item index="4" class="java.lang.String" itemvalue="pages" />
-            <item index="5" class="java.lang.String" itemvalue="post" />
+            <item index="0" class="java.lang.String" itemvalue="media" />
+            <item index="1" class="java.lang.String" itemvalue="smoke" />
+            <item index="2" class="java.lang.String" itemvalue="login" />
+            <item index="3" class="java.lang.String" itemvalue="pages" />
+            <item index="4" class="java.lang.String" itemvalue="post" />
+            <item index="5" class="java.lang.String" itemvalue="comments" />
           </list>
         </value>
       </option>
