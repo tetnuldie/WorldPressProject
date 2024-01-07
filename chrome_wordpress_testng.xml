@@ -2,19 +2,19 @@
 
 <suite name="WordPressSuite_Chrome_remote_vm" verbose="1">
     <parameter name="browserType" value="chrome"/>
-<!--    <test name="User login">
+    <test name="User login">
         <classes>
             <class name="org.example.login.UserLoginTest">
             </class>
         </classes>
-    </test>-->
+    </test>
     <test name="page function">
         <classes>
             <class name="org.example.page.PagesTest">
             </class>
         </classes>
     </test>
-<!--    <test name="post fuction">
+    <test name="post fuction">
         <classes>
             <class name="org.example.posts.PostsTest">
             </class>
@@ -31,5 +31,5 @@
             <class name="org.example.media.MediaTest">
             </class>
         </classes>
-    </test>-->
+    </test>
 </suite>
