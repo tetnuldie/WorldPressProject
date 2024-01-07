@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
-<suite name="WordPressSuite_firefox" verbose="1">
+<suite name="WordPressSuite_firefox_remote_vm" verbose="1">
     <parameter name="browserType" value="firefox"/>
     <test name="test for login func">
         <classes>

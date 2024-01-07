@@ -157,10 +157,10 @@ public class CommentsTestSteps {
         logger.log(Level.INFO, "Starting publish new comment\n" + commentObj);
         publicPostPage.openPage();
         publicPostPage.getCommentBody().sendKeys(commentObj.getComment());
-        publicPostPage.getAuthorField().sendKeys(commentObj.getAuthor());
-        publicPostPage.getEmailField().sendKeys(commentObj.getEmail());
-        publicPostPage.getSiteField().sendKeys(commentObj.getUrl());
-        publicPostPage.click(publicPostPage.getPublishBttn());
+        publicPostPage.getAuthorField().scrollTo().sendKeys(commentObj.getAuthor());
+        publicPostPage.getEmailField().scrollTo().sendKeys(commentObj.getEmail());
+        publicPostPage.getSiteField().scrollTo().sendKeys(commentObj.getUrl());
+        publicPostPage.click(publicPostPage.getPublishBttn().scrollTo());
         try {
             publicPostPage.getCommentPreview();
         } catch (ElementNotFound | RuntimeException e) {

@@ -174,8 +174,9 @@ public class PostsTestSteps {
 
     public void switchPublishedPostToDraft() {
         logger.log(Level.INFO, "performing switch published post to draft");
-        if(!Boolean.getBoolean(createPostPage.getSettingsBttn().getAttribute("aria-expanded"))){
+        if(!createPostPage.getComponentsPanel().isDisplayed()){
             createPostPage.click(createPostPage.getSettingsBttn());
+            createPostPage.getComponentsPanel().should(Condition.appear);
         }
         createPostPage.click(createPostPage.getToDraftBttn());
         createPostPage.click(createPostPage.getAreUSurePopupOkButton());

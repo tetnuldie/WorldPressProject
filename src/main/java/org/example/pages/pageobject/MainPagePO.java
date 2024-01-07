@@ -9,6 +9,7 @@ import static com.codeborne.selenide.Selenide.open;
 public class MainPagePO extends AbstractPage implements MainMenuFunc {
     private final Logger logger = Logger.getLogger(MainPagePO.class);
 
+
     public MainPagePO(PageType pageType) {
         super(pageType);
     }

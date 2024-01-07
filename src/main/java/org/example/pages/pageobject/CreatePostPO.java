@@ -13,6 +13,7 @@ public class CreatePostPO extends AbstractPage {
     public CreatePostPO(PageType pageType) {
         super(pageType);
     }
+
     public PageType getPageType() {
         return pageType;
     }
@@ -66,12 +67,18 @@ public class CreatePostPO extends AbstractPage {
 
     public SelenideElement getSettingsBttn() {
         logger.log(Level.INFO, "trying to get 'Settings' bttn");
-        return $x("//div[@class='edit-post-header__settings']//button[@class='components-button has-icon']").shouldBe(Condition.visible);
+        return $x("//div[@class='interface-pinned-items']/button[contains(@class, 'components-button')]").shouldBe(Condition.visible);
+    }
+
+    public SelenideElement getComponentsPanel(){
+        return $x("//div[@class='components-panel']");
     }
 
     public SelenideElement getToDraftBttn() {
         logger.log(Level.INFO, "trying to get 'Switch to draft' bttn");
-        return $x("//div[@class='components-panel']//button[contains(@class, 'switch-to-draft')]").shouldBe(Condition.visible);
+        return getComponentsPanel()
+                .$x(".//button[contains(@class, 'switch-to-draft')]")
+                .shouldBe(Condition.visible);
     }
 
     public SelenideElement getAreUSurePopupOkButton() {

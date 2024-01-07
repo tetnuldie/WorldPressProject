@@ -1,32 +1,31 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
-<suite name="WordPressSuite_Chrome_remote_vm" verbose="1">
-    <parameter name="browserType" value="chrome"/>
-<!--    <test name="User login">
+<suite name="WordPressSuite" verbose="1">
+    <test name="test for login func">
         <classes>
             <class name="org.example.login.UserLoginTest">
             </class>
         </classes>
-    </test>-->
-    <test name="page function">
+    </test>
+<!--    <test name="test for page func">
         <classes>
             <class name="org.example.page.PagesTest">
             </class>
         </classes>
     </test>
-<!--    <test name="post fuction">
+    <test name="test for post func">
         <classes>
             <class name="org.example.posts.PostsTest">
             </class>
         </classes>
     </test>
-    <test name="comments">
+    <test name="test for comments func">
         <classes>
             <class name="org.example.comments.CommentsTest">
             </class>
         </classes>
     </test>
-    <test name="media">
+    <test name="test for media func">
         <classes>
             <class name="org.example.media.MediaTest">
             </class>
