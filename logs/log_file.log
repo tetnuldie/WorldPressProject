@@ -21543,3 +21543,42 @@ org.example.pages.comments.CommentObject@748ef48e
 2024-01-07 16:07:45 INFO  TablePagePO:39 - trying to find bulk actions apply bttn
 2024-01-07 16:07:45 INFO  AbstractPage:31 - clicking on By.xpath: //div[@class='tablenav top']//input[@id='doaction']
 2024-01-07 16:07:51 INFO  AbstractPage:62 - closing browser
+2024-01-08 19:41:01 INFO  LoginListener:14 - Starting: userPermissionsTest
+2024-01-08 19:41:01 INFO  UserLoginSteps:26 - performing login of user UserOne wo remember
+2024-01-08 19:41:01 INFO  AbstractPage:43 - opening page 'https://wordpress-test-app-for-selenium.azurewebsites.net/wp-login.php'
+2024-01-08 19:41:09 INFO  AbstractPage:15 - trying to get login input field
+2024-01-08 19:41:10 INFO  AbstractPage:15 - trying to get login input field
+2024-01-08 19:41:10 INFO  AbstractPage:20 - trying to get password input field
+2024-01-08 19:41:10 INFO  AbstractPage:20 - trying to get password input field
+2024-01-08 19:41:11 INFO  AbstractPage:30 - trying to get submit bttn
+2024-01-08 19:41:11 INFO  AbstractPage:56 - redirecting to https://wordpress-test-app-for-selenium.azurewebsites.net/wp-login.php after click on By.xpath: //input[@id='wp-submit']
+2024-01-08 19:41:27 INFO  MainMenuFunc:19 - trying to get element DASHBOARD on page side menu
+2024-01-08 19:41:27 INFO  AbstractPage:37 - performing visibility check of By.xpath: //div[@id='adminmenuwrap']/By.xpath: .//li[@id='menu-dashboard']
+2024-01-08 19:41:27 INFO  MainMenuFunc:19 - trying to get element PROFILE on page side menu
+2024-01-08 19:41:27 INFO  AbstractPage:37 - performing visibility check of By.xpath: //div[@id='adminmenuwrap']/By.xpath: .//li[@id='menu-users']
+2024-01-08 19:41:28 INFO  MainMenuFunc:19 - trying to get element COLLAPSE on page side menu
+2024-01-08 19:41:28 INFO  AbstractPage:37 - performing visibility check of By.xpath: //div[@id='adminmenuwrap']/By.xpath: .//li[@id='collapse-menu']
+2024-01-08 19:41:28 INFO  LoginListener:20 - Test passed: userPermissionsTest
+2024-01-08 19:41:28 INFO  LoginListener:23 - Params:
+[SUBSCRIBER]
+2024-01-08 19:41:28 INFO  UserLoginSteps:45 - Starting logout
+2024-01-08 19:41:28 INFO  MainMenuFunc:26 - trying to get element USER on page top menu
+2024-01-08 19:41:28 INFO  MainMenuFunc:38 - trying to get top-menu element USER sub-menu
+2024-01-08 19:41:28 INFO  MainMenuFunc:26 - trying to get element USER on page top menu
+2024-01-08 19:41:52 INFO  LoginListener:14 - Starting: userPermissionsTest
+2024-01-08 19:41:52 INFO  UserLoginSteps:26 - performing login of user UserTwo wo remember
+2024-01-08 19:41:52 INFO  AbstractPage:43 - opening page 'https://wordpress-test-app-for-selenium.azurewebsites.net/wp-login.php'
+2024-01-08 19:41:59 INFO  AbstractPage:15 - trying to get login input field
+2024-01-08 19:41:59 INFO  AbstractPage:15 - trying to get login input field
+2024-01-08 19:42:00 INFO  AbstractPage:20 - trying to get password input field
+2024-01-08 19:42:00 INFO  AbstractPage:20 - trying to get password input field
+2024-01-08 19:42:00 INFO  AbstractPage:30 - trying to get submit bttn
+2024-01-08 19:42:00 INFO  AbstractPage:56 - redirecting to https://wordpress-test-app-for-selenium.azurewebsites.net/wp-login.php after click on By.xpath: //input[@id='wp-submit']
+2024-01-08 19:42:31 ERROR LoginListener:28 - Test Failed: userPermissionsTest
+2024-01-08 19:42:31 ERROR LoginListener:31 - Params:
+[CONTRIBUTOR]
+2024-01-08 19:42:31 INFO  UserLoginSteps:45 - Starting logout
+2024-01-08 19:42:31 INFO  MainMenuFunc:26 - trying to get element USER on page top menu
+2024-01-08 19:42:35 INFO  LoginListener:14 - Starting: userPermissionsTest
+2024-01-08 19:42:35 INFO  LoginListener:14 - Starting: userPermissionsTest
+2024-01-08 19:42:35 INFO  LoginListener:14 - Starting: userPermissionsTest
