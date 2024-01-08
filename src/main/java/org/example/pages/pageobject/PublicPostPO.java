@@ -4,7 +4,6 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.apache.log4j.Level;
 import org.example.pages.PageType;
-import org.example.pages.pageobject.AbstractPage;
 
 
 import static com.codeborne.selenide.Selenide.*;

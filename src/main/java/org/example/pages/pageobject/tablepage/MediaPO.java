@@ -1,7 +1,6 @@
 package org.example.pages.pageobject.tablepage;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import org.apache.log4j.Level;
 import org.example.pages.PageType;

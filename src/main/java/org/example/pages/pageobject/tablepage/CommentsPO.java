@@ -24,7 +24,7 @@ public class CommentsPO extends TablePagePO {
     public SelenideElement getQuickEditRow() {
         logger.log(Level.INFO, "trying to get quick edit form");
         return getTableRows()
-                .filter(Condition.id(String.format("replyrow")))
+                .filter(Condition.id("replyrow"))
                 .first();
     }
 }
