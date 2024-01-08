@@ -1,34 +1,34 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
 <suite name="WordPressSuite" verbose="1">
-    <test name="test for login func">
+    <test name="User login">
         <classes>
-            <class name="org.example.login.UserLoginTest">
+            <class name="org.example.tests.login.UserLoginTest">
             </class>
         </classes>
     </test>
-<!--    <test name="test for page func">
+    <test name="page function">
         <classes>
-            <class name="org.example.page.PagesTest">
+            <class name="org.example.tests.page.PagesTest">
             </class>
         </classes>
     </test>
-    <test name="test for post func">
+    <test name="post fuction">
         <classes>
-            <class name="org.example.posts.PostsTest">
+            <class name="org.example.tests.posts.PostsTest">
             </class>
         </classes>
     </test>
-    <test name="test for comments func">
+    <test name="comments">
         <classes>
-            <class name="org.example.comments.CommentsTest">
+            <class name="org.example.tests.comments.CommentsTest">
             </class>
         </classes>
     </test>
-    <test name="test for media func">
+    <test name="media">
         <classes>
-            <class name="org.example.media.MediaTest">
+            <class name="org.example.tests.media.MediaTest">
             </class>
         </classes>
-    </test>-->
+    </test>
 </suite>

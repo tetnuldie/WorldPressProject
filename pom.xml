@@ -118,8 +118,7 @@
                 <version>3.0.0-M4</version>
                 <configuration>
                     <suiteXmlFiles>
-                        <suiteXmlFile>chrome_wordpress_testng.xml</suiteXmlFile>
-                        <suiteXmlFile>firefox_wordpress_testng.xml</suiteXmlFile>
+                        <suiteXmlFile>wordpress_testng.xml</suiteXmlFile>
                     </suiteXmlFiles>
                 </configuration>
             </plugin>
@@ -135,8 +134,8 @@
                             <version>1.18.30</version> <!-- Проверьте актуальную версию на сайте Lombok -->
                         </path>
                     </annotationProcessorPaths>
-                    <source>16</source>
-                    <target>16</target>
+                    <source>17</source>
+                    <target>17</target>
                 </configuration>
             </plugin>
             <plugin>
