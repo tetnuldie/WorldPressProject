@@ -8,7 +8,7 @@
             </class>
         </classes>
     </test>
-<!--    <test name="test for page func">
+    <test name="test for page func">
         <classes>
             <class name="org.example.page.PagesTest">
             </class>
@@ -31,5 +31,5 @@
             <class name="org.example.media.MediaTest">
             </class>
         </classes>
-    </test>-->
+    </test>
 </suite>
