@@ -18,6 +18,7 @@ public class MediaTestSetup extends SuiteSetup {
 
     @BeforeTest
     public void login() {
+        super.setOptions(Configuration.browser);
         Configuration.timeout = 7000;
         steps.login(user);
     }

@@ -21,6 +21,7 @@ public class PagesTestSetup extends SuiteSetup {
 
     @BeforeTest
     public void login() {
+        super.setOptions(Configuration.browser);
         Configuration.timeout = 15000;
         UserLoginSteps.userLoginWoRemember(user);
     }

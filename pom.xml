@@ -120,6 +120,7 @@
                     <suiteXmlFiles>
                         <suiteXmlFile>chrome_wordpress_testng.xml</suiteXmlFile>
                         <suiteXmlFile>firefox_wordpress_testng.xml</suiteXmlFile>
+                        <suiteXmlFile>opera_wordpress_testng.xml</suiteXmlFile>
                     </suiteXmlFiles>
                 </configuration>
             </plugin>

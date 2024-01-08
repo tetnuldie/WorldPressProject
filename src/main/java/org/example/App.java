@@ -13,18 +13,17 @@ import static com.codeborne.selenide.Selenide.open;
 
 public class App
 {
-/*    static {
-        System.setProperty("webdriver.chrome.driver", "src/chromedriver.exe");
+    static {
+        System.setProperty("webdriver.chrome.driver", "src/geckodriver.exe");
+        Configuration.browser = "firefox";
         Configuration.browserSize = "1920x1080";
-    }*/
+    }
     public static void main( String[] args )
     {
-/*
-        open("https://wordpress-test-app-for-selenium.azurewebsites.net/wp-login.php");
+        open("https://wordpress-test-app-for-selenium.azurewebsites.net/2023/12/30/do_not_delete/");
         System.out.println();
 
 
-*/
 
     }
 }

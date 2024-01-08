@@ -21,6 +21,7 @@ public class CommentsTestSetup extends SuiteSetup {
 
     @BeforeTest
     public void login() {
+        super.setOptions(Configuration.browser);
         Configuration.timeout = 7000;
         testDataComments = steps.publishCommentXTimes(3);
         steps.login(user);
