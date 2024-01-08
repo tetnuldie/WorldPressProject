@@ -10,7 +10,7 @@ public class LoginTestSetup extends SuiteSetup {
 
     @BeforeTest
     public void init() {
-        super.setOptions(Configuration.browser);
+        super.setOptions(Configuration.browser, this.getClass().getSimpleName());
         Configuration.timeout = 7000;
     }
 
