@@ -1,6 +1,7 @@
 package org.example;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -14,6 +15,7 @@ import java.util.HashMap;
 public class SuiteSetup {
     protected final Logger logger = Logger.getLogger(SuiteSetup.class);
 
+
     @BeforeSuite
     public void initSuite() {
         Configuration.remote = "http://34.118.117.38:4444/wd/hub";
@@ -23,7 +25,7 @@ public class SuiteSetup {
 
     @AfterSuite(alwaysRun = true)
     public void tearDown() {
-        WebDriverRunner.getWebDriver().quit();
+        Selenide.closeWebDriver();
     }
 
     protected void setOptions(String browserType, String test) {

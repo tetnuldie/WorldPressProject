@@ -60,6 +60,6 @@ public abstract class AbstractPage implements PageAction {
 
     public void close() {
         logger.log(Level.INFO, "closing browser");
-        webdriver().driver().getWebDriver().quit();
+        Selenide.closeWebDriver();
     }
 }
