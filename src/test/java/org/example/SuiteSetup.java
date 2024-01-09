@@ -2,7 +2,6 @@ package org.example;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.WebDriverRunner;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
@@ -31,6 +30,7 @@ public class SuiteSetup {
     protected void setOptions(String browserType, String test) {
         switch (browserType) {
             case "chrome" -> {
+                System.setProperty("webdriver.chrome.driver", "src/chromedriver.exe");
                 ChromeOptions options = new ChromeOptions();
                 options.setCapability("selenoid:options", new HashMap<String, Object>() {{
                     put("enableVideo", true);
@@ -41,6 +41,7 @@ public class SuiteSetup {
                 Configuration.timeout = 15000;
             }
             case "firefox" -> {
+                System.setProperty("webdriver.gecko.driver", "src/geckodriver.exe");
                 FirefoxOptions options = new FirefoxOptions();
                 options.setCapability("selenoid:options", new HashMap<String, Object>() {{
                     put("enableVideo", true);
