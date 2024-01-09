@@ -87,24 +87,20 @@ public class PostsTestSteps {
 
     public void goToMine(User user) {
         logger.log(Level.INFO, "opening 'Mine' section");
+        postsPage.clickAndRedirectTo(
         postsPage.getFilterRowOptionsRoot()
-                .$x("./li[@class='mine']").shouldBe(Condition.visible)
-                .click();
-
-        Selenide.Wait().until(ExpectedConditions.urlToBe(
+                .$x("./li[@class='mine']").shouldBe(Condition.visible),
                 String.format("https://wordpress-test-app-for-selenium.azurewebsites.net/wp-admin/edit.php?post_type=post&author=%d", user.getUserId())
-        ));
+        );
     }
 
     public void goToTrash() {
         logger.log(Level.INFO, "opening 'Trash' section");
+        postsPage.clickAndRedirectTo(
         postsPage.getFilterRowOptionsRoot()
-                .$x("./li[@class='trash']").shouldBe(Condition.visible)
-                .click();
-
-        Selenide.Wait().until(ExpectedConditions.urlToBe(
+                .$x("./li[@class='trash']").shouldBe(Condition.visible),
                 "https://wordpress-test-app-for-selenium.azurewebsites.net/wp-admin/edit.php?post_status=trash&post_type=post"
-        ));
+        );
     }
 
     public void moveCheckedToTrash() {
