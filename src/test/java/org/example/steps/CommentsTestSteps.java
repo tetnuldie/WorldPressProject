@@ -68,23 +68,20 @@ public class CommentsTestSteps {
 
     public void goToMine(User user) {
         logger.log(Level.INFO, "opening 'Mine' section");
-        commentsPage.getFilterRowOptionsRoot()
-                .$x("./li[@class='mine']").shouldBe(Condition.visible)
-                .click();
-        Selenide.Wait().until(ExpectedConditions.urlToBe(
+        commentsPage.clickAndRedirectTo(
+                commentsPage.getFilterRowOptionsRoot()
+                        .$x("./li[@class='mine']").shouldBe(Condition.visible),
                 String.format("https://wordpress-test-app-for-selenium.azurewebsites.net/wp-admin/edit-comments.php?comment_status=mine&user_id=%d", user.getUserId())
-        ));
+        );
     }
 
     public void goToTrash() {
         logger.log(Level.INFO, "opening 'Trash' section");
-        commentsPage.getFilterRowOptionsRoot()
-                .$x("./li[@class='trash']").shouldBe(Condition.visible)
-                .click();
-
-        Selenide.Wait().until(ExpectedConditions.urlToBe(
+        commentsPage.clickAndRedirectTo(
+                commentsPage.getFilterRowOptionsRoot()
+                        .$x("./li[@class='trash']").shouldBe(Condition.visible),
                 "https://wordpress-test-app-for-selenium.azurewebsites.net/wp-admin/edit-comments.php?comment_status=trash"
-        ));
+        );
     }
 
     public void quickEdit(String text) {
@@ -105,13 +102,11 @@ public class CommentsTestSteps {
 
     public void goToSpam() {
         logger.log(Level.INFO, "opening 'Spam' section");
-        commentsPage.getFilterRowOptionsRoot()
-                .$x("./li[@class='spam']").shouldBe(Condition.visible)
-                .click();
-
-        Selenide.Wait().until(ExpectedConditions.urlToBe(
+        commentsPage.clickAndRedirectTo(
+                commentsPage.getFilterRowOptionsRoot()
+                        .$x("./li[@class='spam']").shouldBe(Condition.visible),
                 "https://wordpress-test-app-for-selenium.azurewebsites.net/wp-admin/edit-comments.php?comment_status=spam"
-        ));
+        );
     }
 
     public void approveChecked() {
@@ -123,13 +118,11 @@ public class CommentsTestSteps {
 
     public void goToApproved() {
         logger.log(Level.INFO, "opening 'Approved' section");
+        commentsPage.clickAndRedirectTo(
         commentsPage.getFilterRowOptionsRoot()
-                .$x("./li[@class='approved']").shouldBe(Condition.visible)
-                .click();
-
-        Selenide.Wait().until(ExpectedConditions.urlToBe(
+                .$x("./li[@class='approved']").shouldBe(Condition.visible),
                 "https://wordpress-test-app-for-selenium.azurewebsites.net/wp-admin/edit-comments.php?comment_status=approved"
-        ));
+        );
     }
 
 

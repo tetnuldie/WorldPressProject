@@ -16,7 +16,7 @@ public class SuiteSetup {
 
     @BeforeSuite
     public void initSuite() {
-        Configuration.remote = System.getProperty("hubUrl");
+        Configuration.remote = "http://34.118.117.38:4444/wd/hub";
         Configuration.browserSize = System.getProperty("browserSize");
         Configuration.browser = System.getProperty("browserType");
     }

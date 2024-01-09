@@ -53,7 +53,7 @@ public abstract class AbstractPage implements PageAction {
 
     @Override
     public void clickAndRedirectTo(SelenideElement element, String expectedUrl) {
-        logger.log(Level.INFO, "redirecting to " + pageType.getUrl() + " after click on " + element.getSearchCriteria());
+        logger.log(Level.INFO, "redirecting to " + expectedUrl + " after click on " + element.getSearchCriteria());
         element.click();
         Selenide.Wait().until(ExpectedConditions.urlToBe(expectedUrl));
     }
