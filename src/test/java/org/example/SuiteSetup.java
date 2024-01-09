@@ -17,7 +17,7 @@ public class SuiteSetup {
 
     @BeforeSuite
     public void initSuite() {
-        Configuration.remote = "http://34.118.117.38:4444/wd/hub";
+        Configuration.remote = System.getProperty("host");
         Configuration.browserSize = System.getProperty("browserSize");
         Configuration.browser = System.getProperty("browserType");
     }
@@ -30,7 +30,6 @@ public class SuiteSetup {
     protected void setOptions(String browserType, String test) {
         switch (browserType) {
             case "chrome" -> {
-                System.setProperty("webdriver.chrome.driver", "src/chromedriver.exe");
                 ChromeOptions options = new ChromeOptions();
                 options.setCapability("selenoid:options", new HashMap<String, Object>() {{
                     put("enableVideo", true);
@@ -41,7 +40,6 @@ public class SuiteSetup {
                 Configuration.timeout = 15000;
             }
             case "firefox" -> {
-                System.setProperty("webdriver.gecko.driver", "src/geckodriver.exe");
                 FirefoxOptions options = new FirefoxOptions();
                 options.setCapability("selenoid:options", new HashMap<String, Object>() {{
                     put("enableVideo", true);
