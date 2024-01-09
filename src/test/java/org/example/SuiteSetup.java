@@ -12,13 +12,18 @@ import java.util.HashMap;
 
 
 public class SuiteSetup {
+    protected static final String browserType;
     protected final Logger logger = Logger.getLogger(SuiteSetup.class);
+
+    static {
+        browserType = System.getProperty("browserType");
+    }
 
     @BeforeSuite
     public void initSuite() {
         Configuration.remote = "http://34.118.117.38:4444/wd/hub";
         Configuration.browserSize = System.getProperty("browserSize");
-        Configuration.browser = System.getProperty("browserType");
+        Configuration.browser = browserType;
     }
 
     @AfterSuite(alwaysRun = true)
